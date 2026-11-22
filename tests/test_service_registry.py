@@ -41,6 +41,25 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(registry.lookup(other, fresh), "OKX 99")
         self.assertEqual(fresh["asOf"], self.now)
 
+    def test_cached_custody_catalog_upgrades_without_network(self):
+        old = copy.deepcopy(self.book)
+        old["entries"] = {a: n for a, n in old["entries"].items()
+                          if not n.startswith("STON.fi") and
+                          not n.startswith("DeDust")}
+        old.pop("directory", None)
+        old.pop("sourceBlob", None)
+        person = "0:d8cd999fb2b1b384e6ca254c3883375e23111a8b78c015b886286c31bf11e29d"
+        dex = "0:f1fbe8d453d3d4b4796d3d8657ef0773222d123d8dca67c9ef3acd2266f40977"
+        snap = {"serviceRegistry": old, "holders": {"holders": [
+            {"wallet": person}, {"wallet": dex}]}}
+        with patch("assets.fetch", side_effect=OSError("temporary source error")):
+            self.assertEqual(registry.update(snap, self.now), "OSError")
+        self.assertEqual(len(snap["serviceRegistry"]["directory"]), 538)
+        self.assertEqual(registry.lookup(dex, snap["serviceRegistry"]), "STON.fi DEX")
+        self.assertEqual(snap["identity"]["byWallet"][person]["directoryName"], "Pavel Durov")
+        self.assertEqual(snap["identity"]["byWallet"][dex]["role"], "STON.fi DEX")
+        self.assertIsNone(snap["identity"]["byWallet"][person].get("role"))
+
     def test_refresh_waits_one_day(self):
         with patch("assets.fetch", side_effect=AssertionError("Too early")):
             self.assertEqual(registry.refresh(self.book, self.now - 2), self.book)

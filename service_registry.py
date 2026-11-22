@@ -171,9 +171,13 @@ def update(snapshot, now, overrides=None):
     # the same upstream blob. Rehydrate its complete source-derived catalog
     # before calling remote services, without changing asOf/source timestamps.
     local = bundled()
-    if (registry.get("sourceBlob") == local.get("sourceBlob") and
+    if (registry.get("source") == SOURCE_PAGE and
             len(registry.get("directory", {})) < len(local.get("directory", {})) and
             all(local["entries"].get(k) == v for k, v in registry["entries"].items())):
+        # Old refreshes omitted sourceBlob, so comparing only that field missed
+        # the upgrade whenever upstream access failed. The local directory is
+        # committed from the exact official accounts.json and is authoritative
+        # for all its 235 service entries; keep its original verification time.
         registry = local
     try:
         registry = refresh(registry, now)
