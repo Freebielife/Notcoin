@@ -1,6 +1,9 @@
 name: Update TON observatory
 on:
   workflow_dispatch:
+  # Temporary fallback until shared Cloudflare runner is authorized and verified.
+  schedule:
+    - cron: '17,47 * * * *'
   push:
     branches: [main]
     paths:
