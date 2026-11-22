@@ -27,6 +27,16 @@ Pool sources:
 - https://www.geckoterminal.com/ton/pools/EQCaY8Ifl2S6lRBMBJeY35LIuMXPc8JfItWG4tl7lBGrSoR2
 - https://www.geckoterminal.com/ton/pools/EQCUhnOllvxtLDEj3_9k0yMeTQ4Wv6rFBtXr2wnzKzucZeER
 
+## Service wallet label precedence
+
+Notcoin checks the **complete Tonkeeper accounts.json** by exact TON address
+before applying other blockchain-explorer, contract-interface, or user-supplied
+labels. The 2026-11-22 snapshot has 540 source rows, 538 unambiguous accounts
+and 235 strictly classified exchange/protocol service entries. Named individuals
+remain ordinary holders. Fallback labels retain their source; no exchange
+ownership is inferred from balances or highload-wallet contract types.
+See [source audit](docs/TONKEEPER_DIRECTORY_AUDIT_2026-11-22.md).
+
 ## Files and operations
 
 - `index.html`: standalone responsive page, no CDN-based frontend runtime.
