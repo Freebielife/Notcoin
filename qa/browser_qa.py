@@ -73,7 +73,11 @@ async def check():
                         title: document.title,
                         market: !!document.querySelector('#market'),
                         feed: !!document.querySelector('#feed'),
-                        rankings: !!document.querySelector('#rank')
+                        rankings: !!document.querySelector('#rank'),
+                        flag36Hero: getComputedStyle(document.querySelector('.heroArt'))
+                          .backgroundImage.includes('data:image/webp;base64,'),
+                        flag36Header: getComputedStyle(document.querySelector('.brandMark'))
+                          .backgroundImage.includes('data:image/webp;base64,')
                       };
                     }""")
                     assert results["scrollWidth"] <= results["viewport"] + 2, (
@@ -84,6 +88,9 @@ async def check():
                         f"Runtime-loaded scripts/styles/iframes: {results['externalAssets']}"
                     )
                     assert results["telegram"], "Official Telegram link missing"
+                    assert results["flag36Hero"] and results["flag36Header"], (
+                        f"TONecoFlags #036 Notcoin logo missing at {width}: {results}"
+                    )
                     assert all(results[k] for k in ("market", "feed", "rankings"))
                     assert "Notcoin" in results["title"], results["title"]
                     await page.screenshot(path=str(REPORT / f"mobile-{width}.png"))
