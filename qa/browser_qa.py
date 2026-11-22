@@ -163,8 +163,22 @@ async def check():
                     assert "Pavel Durov" not in service_text, (
                         f"Named individual incorrectly classified as service at {width}"
                     )
-                    assert "Смарт-контракт" in service_text, (
-                        f"Unattributed active contract not grouped as service at {width}"
+                    contract_groups=await page.evaluate("""() => {
+                        const roles=snapshot.identity?.byWallet||{};
+                        const rows=snapshot.holders?.holders||[];
+                        const unknown=rows.filter(row => roles[row.wallet]?.role === 'unclassified_contract');
+                        const visible=rows.filter(row => Boolean(serviceRole(row.wallet))).slice(0,20);
+                        return {
+                          unknown: unknown.length,
+                          allGrouped: unknown.every(row => serviceRole(row.wallet) === 'Смарт-контракт'),
+                          genericInTop20: visible.some(row => roles[row.wallet]?.role === 'unclassified_contract')
+                        };
+                    }""")
+                    assert contract_groups["allGrouped"], (
+                        f"Unclassified contracts not assigned to service group at {width}"
+                    )
+                    assert ("Смарт-контракт" in service_text) == contract_groups["genericInTop20"], (
+                        f"Top-20 service rendering disagrees with categorized contracts at {width}"
                     )
                     await page.screenshot(path=str(REPORT / f"services-{width}.png"))
                     await page.locator("#views button").nth(0).click()
