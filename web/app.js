@@ -364,11 +364,17 @@ function walletIdentity(raw,name,kind,{activity=false, holder=false, verifiedDom
     wrapper.append(el("span",wl(kind==="buy"?"activeBuy":"activeSell"),"walletRole "+kind));
   }
   wrapper.append(address);
-  // Flag only identified service accounts. Unknown wallets are never guessed.
-  if(holder&&typeof identity?.role==="string"&&identity.role.trim()){
+  // Unknown contract type is NOT proof of a service.
+  if(holder&&identity?.role==="unclassified_contract"){
+    wrapper.classList.add("unknownContract");
+    const unknown=el("span","◇","contractMarker");
+    unknown.title=lang==="ru"?"Смарт-контракт, назначение не установлено":"Smart contract, purpose unverified";
+    unknown.setAttribute("aria-label",unknown.title);
+    wrapper.append(unknown);
+  }else if(holder&&typeof identity?.role==="string"&&identity.role.trim()){
     wrapper.classList.add("serviceWallet");
     const service=el("span","⚙️","serviceGear");
-    service.title=(lang==="ru"?"Сервисный кошелёк · ":"Service wallet · ")+(identity.role==="unclassified_contract" ? (lang==="ru" ? "Смарт-контракт · назначение неизвестно" : "Smart contract · purpose unverified") : identity.role);
+    service.title=(lang==="ru"?"Идентифицированный сервис · ":"Identified service · ")+identity.role;
     if(identity.roleSource==="https://github.com/tonkeeper/ton-assets/blob/main/accounts.json"){
       service.title+=(lang==="ru"?" · Метка Tonkeeper; открыть источник":" · Tonkeeper label; open source");
       const proof=el("a");
@@ -811,7 +817,9 @@ function rankedSellers(source){
 }
 function serviceRole(wallet){
  const role=snapshot.identity?.byWallet?.[wallet]?.role;
- return typeof role==="string"&&role.trim()?role.trim():null;
+ // Generic active contracts must remain visible in the rankings until
+ // an identified protocol or custody provider has been verified.
+ return typeof role==="string"&&role.trim()&&role!=="unclassified_contract"?role.trim():null;
 }
 function ranks(){
  const lastActivity=lastTradeByWallet();
