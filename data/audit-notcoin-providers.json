@@ -1,0 +1,1466 @@
+{
+  "snapshotUpdated": 1795349761,
+  "sources": [
+    "https://tonapi.io/v2/accounts/_bulk",
+    "https://toncenter.com/api/v3/addressBook"
+  ],
+  "totalAddresses": 91,
+  "accounts": {
+    "0:f8b8635d0786b77f9da660e65fd31d670a675dd4302facba692f46b571eb5360": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQD4uGNdB4a3f52mYOZf0x1nCmdd1DAvrLppL0a1cetTYCQx"
+      }
+    },
+    "0:cf7ea235ed6f6517edce98026ef7618e9f6d81a1331d4e65ba718e2cd15f80ad": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQDPfqI17W9lF-3OmAJu92GOn22BoTMdTmW6cY4s0V-ArRRY"
+      }
+    },
+    "0:3791a10cfca22538579d9a3a648b98b56e95bdcbde08fd1e1dba647d9f258df3": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [],
+        "status": "uninit"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [],
+        "user_friendly": "UQA3kaEM_KIlOFedmjpki5i1bpW9y94I_R4dumR9nyWN81hm"
+      }
+    },
+    "0:0116e7242111824deaeba2b8acb6c34e0484c45f5d75d75d75d75d75d75d75d7": {
+      "tonapi": {
+        "name": "use-ton-dns.ton",
+        "is_wallet": true,
+        "interfaces": [],
+        "status": "uninit",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [],
+        "user_friendly": "UQABFuckIRGCTerroristsNOBITEX1111111111111111_jT"
+      }
+    },
+    "0:d8e3e2ad5716b0654fd5bdaeca4ce865871f07a348c8d1a87279b613e58b8991": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQDY4-KtVxawZU_Vva7KTOhlhx8Ho0jI0ahyebYT5YuJkdla"
+      }
+    },
+    "0:6ce8da34fc8f0ac49da75bd8486a04248d149a1822129d2ea7b220b02069bdcd": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "user_friendly": "EQBs6No0_I8KxJ2nW9hIagQkjRSaGCISnS6nsiCwIGm9zbkg"
+      }
+    },
+    "0:85ba9ab88ba4fdc7db48d56bd5039c6a476f795ae947db7ba436be20102aedfc": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQCFupq4i6T9x9tI1WvVA5xqR295WulH23ukNr4gECrt_LVv"
+      }
+    },
+    "0:a212b811feed94df4108d86e51ccb7cb00d3a1ccecfc8d75392b66e454eb5ccd": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "user_friendly": "UQCiErgR_u2U30EI2G5RzLfLANOhzOz8jXU5K2bkVOtczTcP"
+      }
+    },
+    "0:fa23c4ec38d7220168911cd89849f64cce105346b6cae235b512673752a8d685": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQD6I8TsONciAWiRHNiYSfZMzhBTRrbK4jW1Emc3UqjWhWuB"
+      }
+    },
+    "0:7f2cf3759281056287167ae29a0240d340c145c9c0ecf421abc0f2e99c943453": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQB_LPN1koEFYocWeuKaAkDTQMFFycDs9CGrwPLpnJQ0U6Gy"
+      }
+    },
+    "0:255088f87a6bb4c2cb4f555ece1b72b0ee19674bb9570c2fcb3287d9bc27ec06": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQAlUIj4emu0wstPVV7OG3Kw7hlnS7lXDC_LMofZvCfsBjQ1"
+      }
+    },
+    "0:d04805962910549b456752b9f2fbd362fdd7a86e2b34682e97a44b5a971c65fd": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQDQSAWWKRBUm0VnUrny-9Ni_deobis0aC6XpEtalxxl_bjf"
+      }
+    },
+    "0:35376072a02379119a540c197b10d943881e252878751be9192c7f03811a7cc2": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQA1N2ByoCN5EZpUDBl7ENlDiB4lKHh1G-kZLH8DgRp8wuJE"
+      }
+    },
+    "0:5d5fce5db47629f2a8470fc9e310aabd4db79cdc85f88c9027939a2d67629135": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQBdX85dtHYp8qhHD8njEKq9Tbec3IX4jJAnk5otZ2KRNXYu"
+      }
+    },
+    "0:a4762fecf035050359235f98ebafba0b1b449b55318ae3e439d98bddc3571119": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQCkdi_s8DUFA1kjX5jrr7oLG0SbVTGK4-Q52Yvdw1cRGfku"
+      }
+    },
+    "0:d8cd999fb2b1b384e6ca254c3883375e23111a8b78c015b886286c31bf11e29d": {
+      "tonapi": {
+        "name": "Pavel Durov",
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": "monk.t.me",
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQDYzZmfsrGzhObKJUw4gzdeIxEai3jAFbiGKGwxvxHinf4K"
+      }
+    },
+    "0:6694099298a73a19b7ac00f8b73e4ea2fa8a3250f5e0152d8b98bbf4b935ea3f": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQBmlAmSmKc6GbesAPi3Pk6i-ooyUPXgFS2LmLv0uTXqP-ei"
+      }
+    },
+    "0:0b0a2452a32749ba409c4c286b248099a69a5565db99d0ddb039e5eead2f0dbc": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQALCiRSoydJukCcTChrJICZpppVZduZ0N2wOeXurS8NvOlM"
+      }
+    },
+    "0:d833462f172dbed49e2f4ec9ff18a531f142810afb3603940a26df305535ea86": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "user_friendly": "UQDYM0YvFy2-1J4vTsn_GKUx8UKBCvs2A5QKJt8wVTXqhsK0"
+      }
+    },
+    "0:c9959a997e1d4e4383d8db37b86d2101ce78dcf1f1b3904d9888fe572ef0efd4": {
+      "tonapi": {
+        "name": "Bitget12",
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQDJlZqZfh1OQ4PY2ze4bSEBznjc8fGzkE2YiP5XLvDv1M6u"
+      }
+    },
+    "0:9650baefe1a7d54893516da54ee8b709a118ac76715aba39c1429b4a497047d1": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQCWULrv4afVSJNRbaVO6LcJoRisdnFaujnBQptKSXBH0TMO"
+      }
+    },
+    "0:f405142df9074811bb23b91b0cab30e506450011f422c52843102a0a10e5d173": {
+      "tonapi": {
+        "name": "hashtag-on-tele-g.ton",
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQD0BRQt-QdIEbsjuRsMqzDlBkUAEfQixShDECoKEOXRc4eR"
+      }
+    },
+    "0:f2a2e706bf1295fa6388e30a99c431ce294aef002727946d013a85dfc1554317": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "user_friendly": "EQDyoucGvxKV-mOI4wqZxDHOKUrvACcnlG0BOoXfwVVDF57R"
+      }
+    },
+    "0:00812bcece3b8815ffb0ad0d9114e18ca6a5c01f581915c32a111fbc89bf8cda": {
+      "tonapi": {
+        "name": "check-hashtag-on-tg.ton",
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQAAgSvOzjuIFf-wrQ2RFOGMpqXAH1gZFcMqER-8ib-M2vVt"
+      }
+    },
+    "0:d887d0e2d1c4fc4126e71c970d33ab1896940000eae703bb1ab6cecc830777e3": {
+      "tonapi": {
+        "name": "MEXC 3",
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQDYh9Di0cT8QSbnHJcNM6sYlpQAAOrnA7sats7Mgwd3497j"
+      }
+    },
+    "0:3b865f3176d329c18280bb36477a2ece4a726955ace73bb27014b5588d8e00b7": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "user_friendly": "EQA7hl8xdtMpwYKAuzZHei7OSnJpVaznO7JwFLVYjY4At9Ol"
+      }
+    },
+    "0:0a7f4c88ae52be3cd3bac932220b7572569846181afb2ce0f5a305cb3c3565b9": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQAKf0yIrlK-PNO6yTIiC3VyVphGGBr7LOD1owXLPDVlud1T"
+      }
+    },
+    "0:d5575d20c443df8eec85a6ee21a78ddb15995483b3343cc9983865ea719fe316": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "user_friendly": "EQDVV10gxEPfjuyFpu4hp43bFZlUg7M0PMmYOGXqcZ_jFh6m"
+      }
+    },
+    "0:66a1e72196d64d6faf48fa4b2ea861f67b0484d2d14a59caf701d8c286ce44e5": {
+      "tonapi": {
+        "name": "OKX 11",
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQBmoechltZNb69I-ksuqGH2ewSE0tFKWcr3AdjChs5E5RVn"
+      }
+    },
+    "0:65d5390661ceb961906012f2e6d7be85938010ee08d10d375bc8175f54b0e665": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "user_friendly": "UQBl1TkGYc65YZBgEvLm176Fk4AQ7gjRDTdbyBdfVLDmZfUN"
+      }
+    },
+    "0:3183d4febac2b7567f5ca800efa048ac527a92e93dd2bf048234b44980fa7f4f": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "user_friendly": "UQAxg9T-usK3Vn9cqADvoEisUnqS6T3SvwSCNLRJgPp_T2-z"
+      }
+    },
+    "0:07b1a983d23838b86d05b420a42813f624f2cb4f4d91694d8ebacf0f5f4b02ad": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQAHsamD0jg4uG0FtCCkKBP2JPLLT02RaU2Ous8PX0sCre1o"
+      }
+    },
+    "0:b9fa0ddf3a9ff62c904f7835f7463fe35b5dd614b42d8b2f91a6648c85ee6f0b": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQC5-g3fOp_2LJBPeDX3Rj_jW13WFLQtiy-RpmSMhe5vC1M5"
+      }
+    },
+    "0:8aa45a92772b3a84c49ffbf4ebdd1d993514298b7503caee84a7ad3e1e894ba2": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQCKpFqSdys6hMSf-_Tr3R2ZNRQpi3UDyu6Ep60-HolLopIj"
+      }
+    },
+    "0:06f3f073c255a49aa6fdcc89abf512638e065908b30e4173fd3d1d01d4f607bd": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [
+          "storm_vault"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "stonfi_vault_v2",
+          "storm_vault"
+        ],
+        "user_friendly": "EQAG8_BzwlWkmqb9zImr9RJjjgZZCLMOQXP9PR0B1PYHvfSS"
+      }
+    },
+    "0:f04667d6a374d15506b5e7d21c63079ed520408a49bfc2a94bbb9bae18c51f0f": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "multisig_v2"
+        ],
+        "user_friendly": "EQDwRmfWo3TRVQa159IcYwee1SBAikm_wqlLu5uuGMUfD1AL"
+      }
+    },
+    "0:6c25b5f2fe5ef1a6a1978f611f61a50883fd50a0822b19176445fca931823263": {
+      "tonapi": {
+        "name": "OKX 12",
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQBsJbXy_l7xpqGXj2EfYaUIg_1QoIIrGRdkRfypMYIyY4ng"
+      }
+    },
+    "0:eb6220d60c7fcc4e8c42be4688b5d86cf379c6bb9fed5f6f13f9d84ac331950d": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQDrYiDWDH_MToxCvkaItdhs83nGu5_tX28T-dhKwzGVDaSI"
+      }
+    },
+    "0:781c53aef2723c0eec9f08184f6a0216fc26da2acd8d3f7025a2633b76a2c417": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQB4HFOu8nI8DuyfCBhPagIW_CbaKs2NP3AlomM7dqLEF_O8"
+      }
+    },
+    "0:c29ad3b9d091bc3ef63028733abd41f200d3781fa1a5b3d278f4edd25541ce35": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQDCmtO50JG8PvYwKHM6vUHyANN4H6Gls9J49O3SVUHONQKX"
+      }
+    },
+    "0:c1d132e919b1f1d2facd60a721332062842c5f08853a79a6b35496c24e8a09d9": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQDB0TLpGbHx0vrNYKchMyBihCxfCIU6eaazVJbCTooJ2TeZ"
+      }
+    },
+    "0:37727c979c695681d93753eb4c1e8a2b55884a001fd792ecf23fe104e03c8368": {
+      "tonapi": {
+        "name": "hippie-on-telegram.ton",
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQA3cnyXnGlWgdk3U-tMHoorVYhKAB_XkuzyP-EE4DyDaJdm"
+      }
+    },
+    "0:779dcc815138d9500e449c5291e7f12738c23d575b5310000f6a253bd607384e": {
+      "tonapi": {
+        "name": "STON.fi DEX",
+        "is_wallet": false,
+        "interfaces": [
+          "stonfi_router"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "stonfi_router"
+        ],
+        "user_friendly": "EQB3ncyBUTjZUA5EnFKR5_EnOMI9V1tTEAAPaiU71gc4TiUt"
+      }
+    },
+    "0:a024c01d2eadc2b5e71f1aa298ddb2727bd923ac3a7a056fcc9d6ffbcf072525": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v3r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v3r1"
+        ],
+        "user_friendly": "UQCgJMAdLq3CtecfGqKY3bJye9kjrDp6BW_MnW_7zwclJQKz"
+      }
+    },
+    "0:f2fe13c6e35cb3cdbedaab5a79d0dc75f9c2a56503ccd017306b183525ff3e11": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v2r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2r2"
+        ],
+        "user_friendly": "EQDy_hPG41yzzb7aq1p50Nx1-cKlZQPM0Bcwaxg1Jf8-EXeX"
+      }
+    },
+    "0:6382d823acd419404e019e87713d8827e6b0d916bc461cf4ad8809399c4cb20a": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQBjgtgjrNQZQE4BnodxPYgn5rDZFrxGHPStiAk5nEyyCgHz"
+      }
+    },
+    "0:2a18ac1734f34579e6a6c2a9e738bb5799d21e7a73ef106895c00c34549a9167": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQAqGKwXNPNFeeamwqnnOLtXmdIeenPvEGiVwAw0VJqRZ8Mu"
+      }
+    },
+    "0:0d5424cf2c6a70f6b669cef3de8e6c489f6d4d39946486bdb0b0d2aed566f275": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": null,
+        "user_friendly": "EQANVCTPLGpw9rZpzvPejmxIn21NOZRkhr2wsNKu1Wbydd9k"
+      }
+    },
+    "0:0f5495fc1051b11da718e78c27a55700292b6cbdf1a3924a4d0f2841f2884d21": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": null,
+        "user_friendly": "EQAPVJX8EFGxHacY54wnpVcAKStsvfGjkkpNDyhB8ohNIfnO"
+      }
+    },
+    "0:762cbc11bcac3412c272762620ad36a71b237503b64f8f16cff689d9255f3130": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQB2LLwRvKw0EsJydiYgrTanGyN1A7ZPjxbP9onZJV8xMONK"
+      }
+    },
+    "0:3e49ce955d756ecdc1b61e85c45f3a6ddbeb61bc725df4c8a2b3fd576709dcad": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQA-Sc6VXXVuzcG2HoXEXzpt2-thvHJd9Miis_1XZwncrU6J"
+      }
+    },
+    "0:e1b603fbe489fa315285f0d9bc8d8d881e417b5a31f9f77090208ce010c46996": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDhtgP75In6MVKF8Nm8jY2IHkF7WjH593CQIIzgEMRplsep"
+      }
+    },
+    "0:17159dab0539e6a80a75307b2ceb8dec55dea92dcac31ba71ff734a66028958f": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2"
+        ],
+        "user_friendly": "EQAXFZ2rBTnmqAp1MHss643sVd6pLcrDG6cf9zSmYCiVj6RO"
+      }
+    },
+    "0:f187c5695cf1eb798252e9921994c8fd716d15a3a9bd956fbd0142f7fce5a181": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v1r2",
+          "wallet_v2r1",
+          "wallet_v3r1",
+          "wallet_v5_beta"
+        ],
+        "user_friendly": "EQDxh8VpXPHreYJS6ZIZlMj9cW0Vo6m9lW-9AUL3_OWhgTFe"
+      }
+    },
+    "0:137f828a633f3b989ee0653d10c6b14816feebc4da4aface64c7df6e7a119e1f": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQATf4KKYz87mJ7gZT0QxrFIFv7rxNpK-s5kx99uehGeHxZN"
+      }
+    },
+    "0:5717b2f849b97720a82d91134e227fc881e55eeda6c793b5f2182aa07d036aa1": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2"
+        ],
+        "user_friendly": "EQBXF7L4Sbl3IKgtkRNOIn_IgeVe7abHk7XyGCqgfQNqoROc"
+      }
+    },
+    "0:34766ae1f8704e4afb3f0bc06f9c7b657d4f6aa7746ef8fcea4713b36c75d494": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2"
+        ],
+        "user_friendly": "EQA0dmrh-HBOSvs_C8BvnHtlfU9qp3Ru-PzqRxOzbHXUlLgX"
+      }
+    },
+    "0:6798b0df3991bd0cebb8371e91acb536614b5ff6ee13f3bf167b3de5a3613d0a": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v1r2",
+          "wallet_v2r1",
+          "wallet_v3r1",
+          "wallet_v5_beta"
+        ],
+        "user_friendly": "EQBnmLDfOZG9DOu4Nx6RrLU2YUtf9u4T878Wez3lo2E9CqiU"
+      }
+    },
+    "0:71f30112f505297959263c6c21fcce69811743cd890c06117cd8b091d9b80b21": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQBx8wES9QUpeVkmPGwh_M5pgRdDzYkMBhF82LCR2bgLIXUv"
+      }
+    },
+    "0:b7a14d7f3dbc97ea7a1b6a205d7ee9381b4bf2e612b041883d3177fdc326dca2": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v1r2",
+          "wallet_v2r1",
+          "wallet_v3r1",
+          "wallet_v5_beta"
+        ],
+        "user_friendly": "EQC3oU1_PbyX6nobaiBdfuk4G0vy5hKwQYg9MXf9wybcoqmp"
+      }
+    },
+    "0:da19c11c47be337b0294e21f13c07ae243ecffc834907fee72609f2897a9ff13": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDaGcEcR74zewKU4h8TwHriQ-z_yDSQf-5yYJ8ol6n_E_jh"
+      }
+    },
+    "0:da2150746e82f08139c0f3dbb6ba7d28ca2e2f9ce03b0926c2b05f188f0bdfe5": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDaIVB0boLwgTnA89u2un0oyi4vnOA7CSbCsF8Yjwvf5byp"
+      }
+    },
+    "0:da6e0b94abd4dcade117f58c4752332f49112961fe312fa77b4dc84fd3dd949c": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDabguUq9TcreEX9YxHUjMvSREpYf4xL6d7TchP092UnC7K"
+      }
+    },
+    "0:dac1c79423d7e187f8fb2f7d374f9abfc1be87774db44fdc2527d14070e19003": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2"
+        ],
+        "user_friendly": "EQDawceUI9fhh_j7L303T5q_wb6Hd020T9wlJ9FAcOGQA3db"
+      }
+    },
+    "0:dafb181851d6b0820016a95526bd2835d3eea93f9d98045bc1738f634b29a12e": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDa-xgYUdawggAWqVUmvSg10-6pP52YBFvBc49jSymhLolD"
+      }
+    },
+    "0:da2148933a723bf49c2e0ca12ea7e6b8e585ad5fcf41fc72f09c4bbb52ddef13": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDaIUiTOnI79JwuDKEup-a45YWtX89B_HLwnEu7Ut3vE725"
+      }
+    },
+    "0:da0a989bc0dbfabd04fba3c0be041e31fd980539099b0db6caa3a2318da0bd87": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDaCpibwNv6vQT7o8C-BB4x_ZgFOQmbDbbKo6IxjaC9h68B"
+      }
+    },
+    "0:dab6be94fec8bfa68048da15cb041ea7928288fa8c58d1bad26a4114327489f5": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDatr6U_si_poBI2hXLBB6nkoKI-oxY0brSakEUMnSJ9UEy"
+      }
+    },
+    "0:daa72490187e042b8f47bcee7127089bc48e6ec9739aa7d8a5c1175ccf093fb2": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDapySQGH4EK49HvO5xJwibxI5uyXOap9ilwRdczwk_sqAx"
+      }
+    },
+    "0:da15722da0fe8bd0c176fbc4fc2be9fef088b3ec1369eab2a98595ac725315fe": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDaFXItoP6L0MF2-8T8K-n-8Iiz7BNp6rKphZWsclMV_tso"
+      }
+    },
+    "0:daa035443a484b1fe41e85c3fa20342a58754272a841fcddf2843779136f38f8": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQDaoDVEOkhLH-QehcP6IDQqWHVCcqhB_N3yhDd5E284-ECA"
+      }
+    },
+    "0:1c71741d69a9ab3b0fca520b62bc9c64e9ec1edfe021a0330278cd150edea92e": {
+      "tonapi": {
+        "name": "durik0vich.ton",
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active",
+        "is_scam": false
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQAccXQdaamrOw_KUgtivJxk6ewe3-AhoDMCeM0VDt6pLi_1"
+      }
+    },
+    "0:0436e020dcb16036fbf05fe017068abbda0c4b977c418289e3300a7d22c89e91": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v1r2",
+          "wallet_v2r1",
+          "wallet_v3r1",
+          "wallet_v5_beta"
+        ],
+        "user_friendly": "EQAENuAg3LFgNvvwX-AXBoq72gxLl3xBgonjMAp9IsiekVGg"
+      }
+    },
+    "0:368999cfe52c62876baf080cb761f93e1065073d0200074c9890b1ca222fefea": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v1r2",
+          "wallet_v2r1",
+          "wallet_v3r1",
+          "wallet_v5_beta"
+        ],
+        "user_friendly": "EQA2iZnP5Sxih2uvCAy3Yfk-EGUHPQIAB0yYkLHKIi_v6ga-"
+      }
+    },
+    "0:5c0ed7036f8b6bcea1c0e8c5de68605fe94d0754c210fc74f5c4eb0dee4c62c3": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v1r2",
+          "wallet_v2r1",
+          "wallet_v3r1",
+          "wallet_v5_beta"
+        ],
+        "user_friendly": "EQBcDtcDb4trzqHA6MXeaGBf6U0HVMIQ_HT1xOsN7kxiw6zb"
+      }
+    },
+    "0:771f8c1d3f09c96e13033efe9b221a86a4e445b58eefa2afb006aab9863005fe": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQB3H4wdPwnJbhMDPv6bIhqGpORFtY7voq-wBqq5hjAF_sXA"
+      }
+    },
+    "0:18262129c0fa68cd9d8a77f080ed0cae25b2fa7b65347897ba4a406dbd692404": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQAYJiEpwPpozZ2Kd_CA7QyuJbL6e2U0eJe6SkBtvWkkBPX7"
+      }
+    },
+    "0:438995ed4d00ed5a256f9061da519ddaab985fed2d9cb6043dcaccd41e88f0ba": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v1r2",
+          "wallet_v2r1",
+          "wallet_v3r1",
+          "wallet_v5_beta"
+        ],
+        "user_friendly": "EQBDiZXtTQDtWiVvkGHaUZ3aq5hf7S2ctgQ9yszUHojwuraS"
+      }
+    },
+    "0:60029aa1bd7e751af328de3814d4f661499a895f139a996cd62c37b8d927681a": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v1r2",
+          "wallet_v2r1",
+          "wallet_v3r1",
+          "wallet_v5_beta"
+        ],
+        "user_friendly": "EQBgApqhvX51GvMo3jgU1PZhSZqJXxOamWzWLDe42SdoGlh0"
+      }
+    },
+    "0:dae15ccba7159b092a72a3a535a5f8b2bbc788fd2d83b1d3065dc6f37def233a": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2",
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQDa4VzLpxWbCSpyo6U1pfiyu8eI_S2DsdMGXcbzfe8jOkG9"
+      }
+    },
+    "0:06874de46e828f467ff0568e89d7fbe6f3e1258dcaf5395c1960af0c4743c47f": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQAGh03kboKPRn_wVo6J1_vm8-Eljcr1OVwZYK8MR0PEf__W"
+      }
+    },
+    "0:d200680b268c7d431d2894934272da4d52eb2ba8c943e74be28e099a096fa9d5": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2"
+        ],
+        "user_friendly": "EQDSAGgLJox9Qx0olJNCctpNUusrqMlD50vijgmaCW-p1dCm"
+      }
+    },
+    "0:7926c9cd065099ab6aa5a2c32a4c11ca31f80fe775438d752eba5cc5ef665ae3": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2"
+        ],
+        "user_friendly": "EQB5JsnNBlCZq2qlosMqTBHKMfgP53VDjXUuulzF72Za4_IA"
+      }
+    },
+    "0:b76968908c6f4710842017714b852edd5689b9d79b3fc209055192be9a1928d7": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2"
+        ],
+        "user_friendly": "EQC3aWiQjG9HEIQgF3FLhS7dVom515s_wgkFUZK-mhko10DH"
+      }
+    },
+    "0:94a047719daa26475e77afa2b97c394f5ed73716d3197ef5aac4393921d24841": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v2"
+        ],
+        "user_friendly": "EQCUoEdxnaomR153r6K5fDlPXtc3FtMZfvWqxDk5IdJIQXRp"
+      }
+    },
+    "0:7ac5a23d3f14e3e8a275f6348521390f0d45f2699ac1a2b1b54472c05a9b967a": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_highload_v3r1"
+        ],
+        "user_friendly": "EQB6xaI9PxTj6KJ19jSFITkPDUXyaZrBorG1RHLAWpuWesi6"
+      }
+    },
+    "0:3c4eae099a469aa10c714a955b5de9464f45de361c44e6909f3715e815dd8424": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "user_friendly": "UQA8Tq4JmkaaoQxxSpVbXelGT0XeNhxE5pCfNxXoFd2EJC48"
+      }
+    },
+    "0:c8e17fdad8347ee9c9de078e7252a9ce2d98cf80786c279dff67a3331104f46d": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v3r2"
+        ],
+        "user_friendly": "UQDI4X_a2DR-6cneB45yUqnOLZjPgHhsJ53_Z6MzEQT0bSCA"
+      }
+    },
+    "0:391edc8c50e270168eaa476db848ef018212876c10131999239d10ce9ea63d41": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v5r1"
+        ],
+        "user_friendly": "UQA5HtyMUOJwFo6qR224SO8BghKHbBATGZkjnRDOnqY9QbNC"
+      }
+    },
+    "0:15aa546cd8cf8f4152663dd77e8e1e8da75a3f0e366730c496aacbdd656a3d34": {
+      "tonapi": {
+        "is_wallet": true,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v4r2"
+        ],
+        "user_friendly": "UQAVqlRs2M-PQVJmPdd-jh6Np1o_DjZnMMSWqsvdZWo9NAe4"
+      }
+    },
+    "0:1d224642f90bcc6a811e6fb354835a03891c860a169236f910bc8fb1bce1af50": {
+      "tonapi": {
+        "is_wallet": false,
+        "interfaces": [],
+        "status": "active"
+      },
+      "toncenter": {
+        "domain": null,
+        "interfaces": [
+          "wallet_v1r2",
+          "wallet_v2r1",
+          "wallet_v3r1",
+          "wallet_v5_beta"
+        ],
+        "user_friendly": "EQAdIkZC-QvMaoEeb7NUg1oDiRyGChaSNvkQvI-xvOGvUEG0"
+      }
+    }
+  },
+  "errors": []
+}
