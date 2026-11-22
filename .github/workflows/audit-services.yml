@@ -1,0 +1,73 @@
+name: Audit NOT holder and seller service identities
+on:
+  workflow_dispatch:
+  push:
+    paths: [".github/workflows/audit-services.yml"]
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Compare ranked NOT addresses to curated services and cached identities
+        run: |
+          python3 - <<'PY'
+          import json
+          from decimal import Decimal
+          from pathlib import Path
+          d=json.loads(Path("data/snapshot.json").read_text())
+          registry=d.get("serviceRegistry", {}).get("entries", {})
+          identity=d.get("identity", {}).get("byWallet", {})
+          info={"updated":d.get("updated"),"tradesAsOf":d.get("trades",{}).get("asOf"),
+                "tradesSince":d.get("trades",{}).get("since"),
+                "tradesCount":len(d.get("trades",{}).get("rows",[])),
+                "holderTotal":d.get("holders",{}).get("holderCount"),
+                "registryAsOf":d.get("serviceRegistry",{}).get("asOf"),
+                "holders":[],"sellers":{}}
+          def record(addr):
+              record=identity.get(addr,{})
+              return {"wallet":addr,"role":record.get("role"),"roleSource":record.get("roleSource"),
+                      "roleRegistry":record.get("roleRegistry"),"cached":record.get("cached"),
+                      "interfaces":record.get("interfaces"),"is_wallet":record.get("is_wallet"),
+                      "name":record.get("name"),"registry":registry.get(addr)}
+          for pos,h in enumerate(d.get("holders",{}).get("holders",[])[:75],1):
+              info["holders"].append({"rank":pos,**record(h["wallet"]),
+                      "amount":h.get("tokenAmount"),"share":h.get("share"),
+                      "dns":h.get("name")})
+          rows=d.get("trades",{}).get("rows",[])
+          stamp=d.get("trades",{}).get("asOf",0)
+          for days in (1,7,30):
+              amounts={}
+              for row in rows:
+                  if row.get("kind")!="sell" or not (stamp-days*86400 < row.get("time",0) <= stamp):
+                      continue
+                  wallet=row["wallet"]
+                  if wallet not in amounts:amounts[wallet]=[0,0,0]
+                  amounts[wallet][0]+=int(Decimal(row["tokenAmount"])*10**9)
+                  amounts[wallet][1]+=1
+                  amounts[wallet][2]+=int(Decimal(str(row.get("ton",0)))*10**9)
+              leaders=sorted(amounts.items(),key=lambda x:(-x[1][0],x[0]))[:70]
+              info["sellers"][str(days)]=[
+                  {"rank":i,"amount":str(a[0]/10**9),"trades":a[1],"ton":str(a[2]/10**9),**record(addr)}
+                  for i,(addr,a) in enumerate(leaders,1)]
+          Path("data/audit-notcoin-services.json").write_text(json.dumps(info,ensure_ascii=False,indent=2)+"\n")
+          for section,rows in [("holders",info["holders"]),("sellers1d",info["sellers"]["1"]),
+                               ("sellers7d",info["sellers"]["7"]),("sellers30d",info["sellers"]["30"])]:
+              print(section,"raw ranked",len(rows),"roles",sum(bool(r["role"]) for r in rows),
+                    "registry",sum(bool(r["registry"]) for r in rows))
+          PY
+      - name: Commit audit evidence for independent review
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audit-notcoin-services.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record current NOT rankings for service identification audit"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
