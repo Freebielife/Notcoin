@@ -768,7 +768,9 @@ function list(){
    header.append(titleGroup,date);
    const amounts=el("div",undefined,"opAmounts");
    const token=el("div",undefined,"opAmount opToken");
-   token.append(el("strong",format(r.tokenAmount),"opAmountValue"),el("small","NOT","opAmountUnit"));
+   const tokenLabel=el("small",undefined,"opAmountUnit tokenWithFlag");
+   tokenLabel.append(brandMarkNode("project"),document.createTextNode(" NOT"));
+   token.append(el("strong",format(r.tokenAmount),"opAmountValue"),tokenLabel);
    const gram=el("div",undefined,"opAmount opGram");
    const hasGram=r.ton!=null&&Number(r.ton)>0;
    gram.append(el("strong",hasGram?format(r.ton):"—","opAmountValue"),el("small","TON","opAmountUnit"));
@@ -783,12 +785,6 @@ function list(){
    transaction.rel="noopener noreferrer";
    footer.append(wallet,transaction);
    item.append(header,amounts,footer);
-   if(r.kind==="buy"||r.kind==="sell"){
-     const watermark=el("div",undefined,"operationWatermark");
-     watermark.setAttribute("aria-hidden","true");
-     for(let i=0;i<5;i++)watermark.append(brandMarkNode("project"));
-     item.prepend(watermark);
-   }
    return item;
  }));
  if(!combined.length)$("feed").append(el("p",t(large?"noLargeTrades":$("feedDomains").checked||selectedBadgeFilters.size?"noneTagged":"none"),"empty"));
