@@ -1,0 +1,32 @@
+name: Diagnose Notcoin standalone HTML size
+on:
+  push:
+    paths:
+      - '.github/workflows/diagnose-site-size.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect embedded data and source composition
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("data/snapshot.json").read_text())
+          enc=lambda value:len(json.dumps(value,ensure_ascii=False,separators=(",",":")).encode())
+          print("ROOT_HTML_BYTES",Path("index.html").stat().st_size,flush=True)
+          print("FULL_SNAPSHOT_BYTES",Path("data/snapshot.json").stat().st_size,flush=True)
+          for key,value in data.items():
+            size=enc(value)
+            if isinstance(value,dict):
+              detail=[]
+              for part,sub in value.items():
+                itembytes=enc(sub)
+                if itembytes>1000:detail.append((part,itembytes,len(sub) if isinstance(sub,(dict,list)) else 0))
+              print("SECTION",key,size,sorted(detail,key=lambda x:-x[1])[:12],flush=True)
+            else:print("FIELD",key,size,flush=True)
+          PY
