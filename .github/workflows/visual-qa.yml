@@ -8,6 +8,9 @@ on:
       - 'qa/browser_qa.py'
       - 'web/**'
       - 'build.py'
+      - 'service_registry.py'
+      - 'common-services.json'
+      - 'observatory.py'
 permissions:
   contents: read
 jobs:

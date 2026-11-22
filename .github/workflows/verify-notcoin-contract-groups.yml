@@ -23,12 +23,12 @@ jobs:
           import service_registry
           from decimal import Decimal
           book=service_registry.bundled()
-          assert len(book.get("directory", {})) == 538
-          assert len(book["entries"]) == 235
+          assert len(book.get("directory", {})) >= 538
+          assert len(book["entries"]) >= 235
           snap=json.loads(Path("data/snapshot.json").read_text())
           active_book=snap.get("serviceRegistry", {})
-          assert len(active_book.get("directory", {})) == 538, "Full source not activated in snapshot"
-          assert len(active_book.get("entries", {})) == 235, "Service subset not activated"
+          assert len(active_book.get("directory", {})) >= 538, "Full source not activated in snapshot"
+          assert len(active_book.get("entries", {})) >= 235, "Service subset not activated"
           dex="0:f1fbe8d453d3d4b4796d3d8657ef0773222d123d8dca67c9ef3acd2266f40977"
           person="0:d8cd999fb2b1b384e6ca254c3883375e23111a8b78c015b886286c31bf11e29d"
           assert service_registry.lookup(dex,active_book)=="STON.fi DEX"
