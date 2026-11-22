@@ -30,11 +30,17 @@ background = "data:image/svg+xml;base64," + base64.b64encode(
 if (WEB / "project-background.webp").exists():
     background = "data:image/webp;base64," + base64.b64encode(
         (WEB / "project-background.webp").read_bytes()).decode("ascii")
-template = template.replace("__PROJECT_ART__", art).replace("__PROJECT_BG__", background)
+token_flag = WEB / "flag-notcoin-036.webp"
+if not token_flag.is_file():
+    raise ValueError("Missing local TONecoFlags #036 token marker")
+flag = "data:image/webp;base64," + base64.b64encode(token_flag.read_bytes()).decode("ascii")
+template = (template.replace("__PROJECT_ART__", art)
+                    .replace("__PROJECT_BG__", background)
+                    .replace("__TOKEN_FLAG__", flag))
 snapshot = json.loads((ROOT / "data/snapshot.json").read_text())
 payload = json.dumps(snapshot, ensure_ascii=False, separators=(",", ":")).replace("<", r"\u003c")
 result = template.replace("__SNAPSHOT__", payload)
 if any(x in result for x in ("/*APP*/", "/*STYLE*/", "/*LOADER*/", "/*MARKET_CAP*/",
-                             "__PROJECT_ART__", "__PROJECT_BG__", "__BADGE_")):
+                             "__PROJECT_ART__", "__PROJECT_BG__", "__TOKEN_FLAG__", "__BADGE_")):
     raise ValueError("Unresolved template marker")
 (ROOT / "index.html").write_text(result)
