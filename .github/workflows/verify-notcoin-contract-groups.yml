@@ -1,0 +1,58 @@
+name: Verify current NOT service and contract groups
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-notcoin-contract-groups.yml']
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Verify live holder groups and provenance
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          import observatory
+          snap=json.loads(Path("data/snapshot.json").read_text())
+          holders=snap["holders"]["holders"][:100]
+          identities=snap["identity"]["byWallet"]
+          account_types=snap.get("accountTypes",{}).get("byWallet",{})
+          assert account_types, "No bulk contract classifications stored"
+          all_groups=[]
+          contracts=[]
+          unknown=[]
+          for rank,row in enumerate(holders,1):
+              address=row["wallet"]
+              record=identities.get(address,{})
+              typ=account_types.get(address,{})
+              role=record.get("role")
+              is_active_contract=typ.get("status")=="active" and typ.get("isWallet") is False
+              if is_active_contract:
+                  assert role, f"Contract not grouped: rank {rank} {address}"
+                  contracts.append({"rank":rank,"wallet":address,"role":role,"amount":row["tokenAmount"]})
+              if role:
+                  all_groups.append({"rank":rank,"wallet":address,"role":role,"source":record.get("roleSource"),"amount":row["tokenAmount"]})
+              if not role:
+                  unknown.append(rank)
+          for address,label in observatory.USER_DECLARED_SERVICES.items():
+              row=identities.get(address,{})
+              assert row.get("role")==label,(address,row.get("role"),label)
+              assert row.get("roleSource")==observatory.USER_LABEL_SOURCE,row
+          print("Snapshot updated:",snap["updated"])
+          print("Top holder count:",len(holders))
+          print("TonAPI typed accounts:",len(account_types))
+          print("Top active non-wallet contracts:",len(contracts))
+          print("Top entries routed to service/contract group:",len(all_groups))
+          print("Remaining non-service ranks:",len(unknown))
+          print("All contract ranks/types:")
+          print(json.dumps(contracts,ensure_ascii=False,indent=2))
+          print("All service-group ranks/types:")
+          print(json.dumps(all_groups,ensure_ascii=False,indent=2))
+          PY
