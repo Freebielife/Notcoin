@@ -752,3 +752,41 @@ html[lang="ru"] .customBadgeDescription [lang="en"] {display:none!important}
 @media(prefers-reduced-motion:reduce) {
  .projectBadge.customBadge img {animation:none!important}
 }
+
+/* NOT brand separation: crisp rounded project identity for header/hero.
+   TONecoFlags #036 remains only a compact NOT label beside trades/pools. */
+:root{--not-token-flag:url("__TOKEN_FLAG__")}
+.brand .brandMark{
+ background:var(--project-art) center / contain no-repeat!important;
+ border-radius:50%!important;
+ box-shadow:0 0 0 1px #4b6484,0 4px 13px #03070d77!important;
+ overflow:hidden
+}
+.hero .heroArt{
+ width:clamp(118px,27%,190px)!important;
+ height:auto!important;aspect-ratio:1;
+ inset:20px 20px auto auto!important;
+ background:var(--project-art) center / contain no-repeat!important;
+ border-radius:50%!important;
+ filter:drop-shadow(0 9px 18px #050910aa)!important;
+ opacity:1!important
+}
+.brandGlyph.brand-project{
+ background:var(--not-token-flag) center / contain no-repeat!important;
+ background-color:#080b11!important;
+ border-color:transparent!important;border-radius:5px!important;
+ box-shadow:none!important;padding:0!important;
+ color:transparent!important;font-size:0!important
+}
+@media(max-width:640px){
+ .hero .heroArt{
+  width:clamp(94px,29vw,140px)!important;aspect-ratio:1;
+  inset:15px 13px auto auto!important
+ }
+}
+@media(max-width:390px){
+ .hero .heroArt{
+  width:100px!important;aspect-ratio:1;
+  inset:16px 12px auto auto!important
+ }
+}
