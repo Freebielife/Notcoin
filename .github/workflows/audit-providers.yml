@@ -1,0 +1,78 @@
+name: Cross-check NOT service metadata
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/audit-providers.yml']
+permissions:
+  contents: write
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Cross-reference ranked wallets with TON API and TON Center
+        run: |
+          python3 - <<'PY'
+          import json, urllib.request, urllib.parse, urllib.error, time
+          from pathlib import Path
+          report=json.loads(Path("data/audit-notcoin-services.json").read_text())
+          addresses=list(dict.fromkeys(
+              [r["wallet"] for r in report["holders"][:45]]+
+              [r["wallet"] for days in ("1","7","30") for r in report["sellers"][days][:30]]))
+          out={"snapshotUpdated":report["updated"],"sources":[
+              "https://tonapi.io/v2/accounts/_bulk","https://toncenter.com/api/v3/addressBook"],
+              "totalAddresses":len(addresses),"accounts":{},"errors":[]}
+          def request(url, data=None):
+              headers={"Accept":"application/json","User-Agent":"NOT-Observatory-Service-Audit/1.0"}
+              if data is not None:headers["Content-Type"]="application/json"
+              req=urllib.request.Request(url,data=data,headers=headers,method="POST" if data else "GET")
+              with urllib.request.urlopen(req,timeout=28) as resp:
+                  return json.load(resp)
+          for i in range(0,len(addresses),20):
+              chunk=addresses[i:i+20]
+              try:
+                  body=json.dumps({"account_ids":chunk}).encode()
+                  response=request("https://tonapi.io/v2/accounts/_bulk",data=body)
+                  items=response.get("accounts",[]) if isinstance(response,dict) else []
+                  for item in items:
+                      addr=item.get("address")
+                      if not addr:continue
+                      out["accounts"].setdefault(addr,{})["tonapi"]={
+                        k:item.get(k) for k in ("name","is_wallet","interfaces","status","is_scam")
+                        if k in item}
+                  print("TonAPI bulk",i//20,"returned",len(items),flush=True)
+              except Exception as e:
+                  out["errors"].append("TonAPI bulk "+str(i//20)+": "+type(e).__name__+" "+str(e)[:100])
+                  print(out["errors"][-1],flush=True)
+              time.sleep(1.5)
+              try:
+                  params=urllib.parse.urlencode([("address",x) for x in chunk])
+                  response=request("https://toncenter.com/api/v3/addressBook?"+params)
+                  if isinstance(response,dict):
+                      for addr,item in response.items():
+                          if isinstance(item,dict):
+                              out["accounts"].setdefault(addr,{})["toncenter"]={
+                                k:item.get(k) for k in ("domain","interfaces","user_friendly","name")
+                                if k in item}
+                  print("TON Center book",i//20,"returned",len(response),flush=True)
+              except Exception as e:
+                  out["errors"].append("TON Center "+str(i//20)+": "+type(e).__name__+" "+str(e)[:100])
+                  print(out["errors"][-1],flush=True)
+              time.sleep(1.5)
+          Path("data/audit-notcoin-providers.json").write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n")
+          print("Provider audit complete: addresses",len(addresses),"returned",len(out["accounts"]),"errors",len(out["errors"]))
+          PY
+      - name: Commit independent metadata evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audit-notcoin-providers.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Cross-check NOT holder and seller service metadata"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
