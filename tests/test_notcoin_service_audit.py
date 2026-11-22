@@ -22,6 +22,15 @@ class NotcoinServiceAuditTests(unittest.TestCase):
         for wallet, name in observatory.USER_DECLARED_SERVICES.items():
             self.assertEqual(observatory.role(wallet, {"is_wallet": True}), name)
 
+    def test_primary_directory_protocol_markers(self):
+        import service_registry
+        book = service_registry.bundled()
+        for addr in (
+            "0:f1fbe8d453d3d4b4796d3d8657ef0773222d123d8dca67c9ef3acd2266f40977",
+            "0:09c5b9b0870270f85a26165b75458ba475e4e5b620a65a5b2ead0b1031126165",
+        ):
+            self.assertIsNotNone(service_registry.lookup(addr, book))
+
     def test_generic_contract_is_unclassified_not_named(self):
         self.assertEqual(
             observatory.role("0:" + "ef" * 32, {"status": "active", "is_wallet": False}),

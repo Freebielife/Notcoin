@@ -26,26 +26,57 @@ FAMILIES = (
 NAME = re.compile(r"(?:" + "|".join(re.escape(n) for n in FAMILIES) +
                   r")(?:\s*(?:\d+|Hot Wallet|Cold Storage(?: \d+)?|Deposit|Withdrawal))?"
                   r"(?: \(Old\))?", re.I)
+# Exact labels from TONkeeper that represent protocol infrastructure rather
+# than individuals. Matching names alone is insufficient: role assignment
+# additionally requires the exact normalized on-chain address.
+PROTOCOLS = (
+    r"DeDust [\w₮-]+ vault",
+    r"DeDust Pool: [\w₮/$.-]+",
+    r"STON\.fi DEX",
+    r"Omniston (?:Escrow Minter|Fee Vault|DEX Bridge)",
+    r"Notcoin Voucher Swap [0-9A-F]",
+    r"(?:BSC|ETH) Bridge(?: (?:Collector|Governance))?",
+    r"Orbit Bridge (?:TON|ETH|KLAYTN|POLYGON|WEMIX) (?:Vault|Governance|Minter)",
+    r"Symbiosis Bridge",
+    r"(?:Getgems|Portals|Disintar) Marketplace",
+    r"Getgems Gift Minter",
+)
+PROTOCOL = re.compile(r"(?:" + "|".join(PROTOCOLS) + r")", re.I)
 
 
-def parse_accounts(accounts):
+def service_name(name):
+    return bool(NAME.fullmatch(name) or PROTOCOL.fullmatch(name))
+
+
+def parse_directory(accounts):
+    """Full first-party address directory. Conflicting aliases are quarantined."""
     if not isinstance(accounts, list) or not 1 <= len(accounts) <= 20000:
         raise ValueError("Malformed curated account list")
-    entries = {}
+    directory, conflicting = {}, set()
     for row in accounts:
         if not isinstance(row, dict):
             raise ValueError("Malformed curated account")
-        name = row.get("name", "")
-        if not isinstance(name, str) or not NAME.fullmatch(name):
-            continue
-        address = row.get("address", "")
-        if not isinstance(address, str) or not ADDRESS.fullmatch(address):
-            raise ValueError("Invalid curated custody address")
-        if address in entries and entries[address] != name:
-            raise ValueError("Conflicting curated custody labels")
-        entries[address] = name
+        addr, name = row.get("address"), row.get("name")
+        if not isinstance(addr, str) or not ADDRESS.fullmatch(addr):
+            raise ValueError("Invalid curated address")
+        if not isinstance(name, str) or not name or len(name) > 256:
+            raise ValueError("Invalid curated label")
+        if addr in directory and directory[addr] != name:
+            conflicting.add(addr)
+        else:
+            directory[addr] = name
+    for addr in conflicting:
+        directory.pop(addr, None)
+    if not directory:
+        raise ValueError("Empty or ambiguous curated directory")
+    return directory, sorted(conflicting)
+
+
+def parse_accounts(accounts):
+    directory, _ = parse_directory(accounts)
+    entries = {addr: name for addr, name in directory.items() if service_name(name)}
     if not entries:
-        raise ValueError("Empty custody registry")
+        raise ValueError("Empty service registry")
     return entries
 
 
@@ -60,6 +91,15 @@ def validate(registry):
     parsed = parse_accounts([{"address": a, "name": n} for a, n in entries.items()])
     if parsed != entries:
         raise ValueError("Unsupported registry label")
+    directory = registry.get("directory")
+    if directory is not None:
+        if not isinstance(directory, dict) or not directory or len(directory) > 20000:
+            raise ValueError("Invalid full Tonkeeper directory")
+        for addr, name in directory.items():
+            if not ADDRESS.fullmatch(addr) or not isinstance(name, str) or not name:
+                raise ValueError("Malformed Tonkeeper directory item")
+        if any(directory.get(a) != n for a, n in entries.items()):
+            raise ValueError("Service registry disagrees with full Tonkeeper directory")
     return registry
 
 
@@ -78,10 +118,13 @@ def refresh(previous, now, fetch=None):
     if fetch is None:
         from assets import fetch
     accounts = fetch("", attempts=2, api=SOURCE)
-    entries = parse_accounts(accounts)
+    directory, ambiguous = parse_directory(accounts)
+    entries = {address: name for address, name in directory.items() if service_name(name)}
     digest = hashlib.sha256(json.dumps(accounts, sort_keys=True, separators=(",", ":"),
                                       ensure_ascii=False).encode()).hexdigest()
-    return {"asOf": now, "source": SOURCE_PAGE, "sha256": digest, "entries": entries}
+    return {"asOf": now, "source": SOURCE_PAGE, "sha256": digest,
+            "entries": entries, "directory": directory,
+            "ambiguous": ambiguous, "sourceCount": len(accounts)}
 
 
 def apply(snapshot, registry, overrides=None):
@@ -95,8 +138,16 @@ def apply(snapshot, registry, overrides=None):
                          ("burns", "rows"), ("zeroBurns", "rows")):
         wallets.update(r["wallet"] for r in snapshot.get(section, {}).get(key, []))
     for wallet in wallets:
-        label = overrides.get(wallet) or lookup(wallet, registry)
+        # TONkeeper verified exact address first, supplementary labels second.
+        label = lookup(wallet, registry) or overrides.get(wallet)
         record = records.get(wallet, {})
+        directory_name = registry.get("directory", {}).get(wallet)
+        if directory_name:
+            record["directoryName"] = directory_name
+            record["directorySource"] = SOURCE_PAGE
+        else:
+            record.pop("directoryName", None)
+            record.pop("directorySource", None)
         if record.pop("roleRegistry", False):
             # A removed upstream attribution must not survive in the identity cache.
             record.update(role=None)
@@ -104,7 +155,7 @@ def apply(snapshot, registry, overrides=None):
             record.pop("roleChecked", None)
         if label:
             record["role"] = label
-            if wallet not in overrides:
+            if wallet in registry["entries"]:
                 record.update(roleRegistry=True, roleSource=registry["source"],
                               roleChecked=registry["asOf"])
             records[wallet] = record
@@ -113,6 +164,14 @@ def apply(snapshot, registry, overrides=None):
 def update(snapshot, now, overrides=None):
     """Retain last good labels on source failure, without falsifying their age."""
     registry = snapshot.get("serviceRegistry") or bundled()
+    # Older Notcoin snapshots contain only 112 custody labels, despite using
+    # the same upstream blob. Rehydrate its complete source-derived catalog
+    # before calling remote services, without changing asOf/source timestamps.
+    local = bundled()
+    if (registry.get("sourceBlob") == local.get("sourceBlob") and
+            len(registry.get("directory", {})) < len(local.get("directory", {})) and
+            all(local["entries"].get(k) == v for k, v in registry["entries"].items())):
+        registry = local
     try:
         registry = refresh(registry, now)
         error = None

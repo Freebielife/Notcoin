@@ -61,12 +61,37 @@ class RegistryTests(unittest.TestCase):
             with self.subTest(rows=rows), self.assertRaises(ValueError):
                 registry.parse_accounts(rows)
 
-    def test_project_override_has_priority(self):
-        snap = {"holders": {"holders": [{"wallet": self.wallet}]}}
-        registry.apply(snap, self.book, {self.wallet: "Explicit override"})
-        record = snap["identity"]["byWallet"][self.wallet]
-        self.assertEqual(record["role"], "Explicit override")
-        self.assertNotIn("roleRegistry", record)
+    def test_tonkeeper_primary_and_manual_fallback(self):
+        unknown = "0:" + "fa" * 32
+        snap = {"holders": {"holders": [{"wallet": self.wallet}, {"wallet": unknown}]}}
+        registry.apply(snap, self.book, {
+            self.wallet: "Wrong override", unknown: "Owner-confirmed fallback"})
+        records = snap["identity"]["byWallet"]
+        self.assertEqual(records[self.wallet]["role"], "Binance")
+        self.assertEqual(records[self.wallet]["roleSource"], registry.SOURCE_PAGE)
+        self.assertEqual(records[unknown]["role"], "Owner-confirmed fallback")
+        self.assertNotIn("roleRegistry", records[unknown])
+
+    def test_directory_is_first_checked_and_nonservices_not_misclassified(self):
+        full = registry.bundled()
+        self.assertGreaterEqual(len(full["directory"]), 500)
+        self.assertGreaterEqual(len(full["entries"]), 200)
+        dex = "0:f1fbe8d453d3d4b4796d3d8657ef0773222d123d8dca67c9ef3acd2266f40977"
+        person = "0:d8cd999fb2b1b384e6ca254c3883375e23111a8b78c015b886286c31bf11e29d"
+        self.assertEqual(registry.lookup(dex, full), "STON.fi DEX")
+        self.assertIsNone(registry.lookup(person, full))
+        self.assertEqual(full["directory"][person], "Pavel Durov")
+        self.assertNotIn("0:94a7cf34ef6a4b5063500975d70c524cdc2e6ff465d38d5ee8bb7dcc8f7af45e", full["directory"])
+
+    def test_tonkeeper_duplicate_addresses_are_quarantined(self):
+        ambiguous = "0:" + "aa" * 32
+        rows = [{"address": ambiguous, "name": "TON Coin Pool Rewards"},
+                {"address": ambiguous, "name": "TON Coin Pool Withdraw 1"},
+                {"address": "0:" + "bb" * 32, "name": "STON.fi DEX"}]
+        directory, duplicates = registry.parse_directory(rows)
+        self.assertNotIn(ambiguous, directory)
+        self.assertEqual(duplicates, [ambiguous])
+        self.assertEqual(registry.parse_accounts(rows), {"0:" + "bb"*32: "STON.fi DEX"})
 
 
 if __name__ == "__main__":

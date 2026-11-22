@@ -358,7 +358,7 @@ function walletIdentity(raw,name,kind,{activity=false, holder=false, verifiedDom
   const wrapper=el("span",undefined,"walletIdentity");
   const identity=snapshot.identity?.byWallet?.[raw];
   const domain=linkedDomain(raw);
-  const address=addr(raw,(holder&&serviceRole(raw))||domain||name);
+  const address=addr(raw,(holder&&serviceRole(raw))||domain||identity?.directoryName||name);
   address.className="walletAddress "+(kind||"neutral");
   if(!activity&&holder&&kind){
     wrapper.append(el("span",wl(kind==="buy"?"activeBuy":"activeSell"),"walletRole "+kind));

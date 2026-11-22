@@ -31,6 +31,9 @@ USER_DECLARED_SERVICES = {
 USER_LABEL_SOURCE = "user-declared:2026-11-22"
 
 def role(wallet, account, registry=None):
+    primary = service_registry.lookup(wallet, registry)
+    if primary:
+        return primary
     if wallet in USER_DECLARED_SERVICES:
         return USER_DECLARED_SERVICES[wallet]
     if wallet in KNOWN_SERVICES:
@@ -124,7 +127,11 @@ def identity(snapshot, now, budget=32, pace=1.05):
     records = {w: dict(r) for w, r in previous.items()}
     for w in visible:
         records.setdefault(w, {})
-        if w in USER_DECLARED_SERVICES:
+        primary = service_registry.lookup(w, snapshot.get("serviceRegistry"))
+        if primary:
+            records[w]["role"] = primary
+            records[w]["roleSource"] = service_registry.SOURCE_PAGE
+        elif w in USER_DECLARED_SERVICES:
             records[w]["role"] = USER_DECLARED_SERVICES[w]
             records[w]["roleSource"] = USER_LABEL_SOURCE
         elif w in KNOWN_SERVICES:
