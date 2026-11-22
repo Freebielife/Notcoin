@@ -74,10 +74,20 @@ async def check():
                         market: !!document.querySelector('#market'),
                         feed: !!document.querySelector('#feed'),
                         rankings: !!document.querySelector('#rank'),
-                        flag36Hero: getComputedStyle(document.querySelector('.heroArt'))
+                        mainLogoHero: getComputedStyle(document.querySelector('.heroArt'))
                           .backgroundImage.includes('data:image/webp;base64,'),
-                        flag36Header: getComputedStyle(document.querySelector('.brandMark'))
-                          .backgroundImage.includes('data:image/webp;base64,')
+                        mainLogoHeader: getComputedStyle(document.querySelector('.brandMark'))
+                          .backgroundImage.includes('data:image/webp;base64,'),
+                        flagInTokenLabel: !!document.querySelector('[data-brand="project"] .brandGlyph') &&
+                          getComputedStyle(document.querySelector('[data-brand="project"] .brandGlyph'))
+                            .backgroundImage.includes('data:image/webp;base64,'),
+                        mainAndFlagSeparate: (() => {
+                          const hero = getComputedStyle(document.querySelector('.heroArt')).backgroundImage;
+                          const header = getComputedStyle(document.querySelector('.brandMark')).backgroundImage;
+                          const mark = document.querySelector('[data-brand="project"] .brandGlyph');
+                          return !!mark && hero === header &&
+                            hero !== getComputedStyle(mark).backgroundImage;
+                        })()
                       };
                     }""")
                     assert results["scrollWidth"] <= results["viewport"] + 2, (
@@ -88,8 +98,9 @@ async def check():
                         f"Runtime-loaded scripts/styles/iframes: {results['externalAssets']}"
                     )
                     assert results["telegram"], "Official Telegram link missing"
-                    assert results["flag36Hero"] and results["flag36Header"], (
-                        f"TONecoFlags #036 Notcoin logo missing at {width}: {results}"
+                    assert (results["mainLogoHero"] and results["mainLogoHeader"]
+                            and results["flagInTokenLabel"] and results["mainAndFlagSeparate"]), (
+                        f"Main logo or separate TONecoFlags #036 token marker missing at {width}: {results}"
                     )
                     assert all(results[k] for k in ("market", "feed", "rankings"))
                     assert "Notcoin" in results["title"], results["title"]
