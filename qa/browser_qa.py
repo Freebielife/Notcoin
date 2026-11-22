@@ -117,6 +117,26 @@ async def check():
                     assert all(results[k] for k in ("market", "feed", "rankings"))
                     assert "Notcoin" in results["title"], results["title"]
                     await page.screenshot(path=str(REPORT / f"mobile-{width}.png"))
+                    # Actual rendered ranking must separate contracts and
+                    # owner-supplied exchange labels from ordinary holders.
+                    service_tab=page.locator("#views button").nth(2)
+                    await service_tab.click()
+                    service_text=await page.locator("#rank").inner_text()
+                    assert "Binance" in service_text and "Bybit" in service_text, (
+                        f"Operator-supplied exchange labels missing in service group at {width}"
+                    )
+                    assert "Смарт-контракт" in service_text, (
+                        f"Unattributed active contract not grouped as service at {width}"
+                    )
+                    await page.screenshot(path=str(REPORT / f"services-{width}.png"))
+                    await page.locator("#views button").nth(0).click()
+                    regular_text=await page.locator("#rank").inner_text()
+                    assert "Binance" not in regular_text and "Bybit" not in regular_text, (
+                        f"Exchange addresses still in normal holders at {width}"
+                    )
+                    assert "Смарт-контракт" not in regular_text, (
+                        f"Unattributed contract still in normal holders at {width}"
+                    )
                     rows.append({"width": width, **results, "status": "passed"})
                     print(f"{width}px: passed; {results['links']} links; "
                           f"scroll width {results['scrollWidth']}", flush=True)
