@@ -38,18 +38,15 @@ separately. Service wallet labels are attributed, not inferred from size.
 ## To enable unattended external refreshes
 
 The shared runner lives in `Freebielife/Ludoman/cloudflare/observatory-runner`.
-Notcoin has been added there with `enabled: false` to avoid unauthorized
-dispatches. Before changing it to `true`:
+Notcoin is registered there with `enabled: true` after the owner confirmed
+adding this repository to the existing fine-grained GitHub token. The repository
+is public, and the configured cadence is every 30 minutes at :20 / :50 UTC.
 
-1. Make this repository public if the TON site should load fresh JSON directly
-   from the GitHub raw/contents endpoints. Otherwise a separately authorized
-   public snapshot endpoint is required.
-2. Grant the **existing** fine-grained GitHub token used by the Cloudflare
-   Observatory Runner access to the `Freebielife/Notcoin` repository with
-   **Actions: Read and write**. Do **not** paste this token into chats or files.
-3. Enable the project in `cloudflare/observatory-runner/src/projects.mjs`,
-   deploy the change, and confirm at least two real `workflow_dispatch` runs.
-   The staged cadence is 30 minutes, phase :20 / :50 UTC.
+This source configuration alone does not prove that Cloudflare has deployed the
+latest code or sent an authenticated dispatch. Confirm two successful Notcoin
+`workflow_dispatch` launches in GitHub Actions, then remove the temporary
+GitHub cron (`17,47 * * * *`) from `.github/workflows/update.yml` to avoid
+duplicate updates. Never commit or share the Cloudflare token.
 
 Publishing `index.html` to TON Sites / TON Storage is a separate step,
 not performed by GitHub Actions. Until the new repo is public, the standalone
