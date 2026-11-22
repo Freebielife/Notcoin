@@ -3,6 +3,7 @@ import base64
 import json
 from pathlib import Path
 from scripts.icon_pack import embedded_script
+from scripts.bootstrap_snapshot import make_preview, MAX_PAGE_BYTES, PREVIEW_TRADE_LIMITS
 
 ROOT = Path(__file__).resolve().parent
 WEB = ROOT / "web"
@@ -38,8 +39,20 @@ template = (template.replace("__PROJECT_ART__", art)
                     .replace("__PROJECT_BG__", background)
                     .replace("__TOKEN_FLAG__", flag))
 snapshot = json.loads((ROOT / "data/snapshot.json").read_text())
-payload = json.dumps(snapshot, ensure_ascii=False, separators=(",", ":")).replace("<", r"\u003c")
-result = template.replace("__SNAPSHOT__", payload)
+result = None
+preview = None
+for count in PREVIEW_TRADE_LIMITS:
+    preview = make_preview(snapshot, trade_limit=count)
+    payload = json.dumps(preview, ensure_ascii=False, separators=(",", ":")).replace("<", r"\u003c")
+    candidate = template.replace("__SNAPSHOT__", payload)
+    if len(candidate.encode("utf-8")) <= MAX_PAGE_BYTES:
+        result = candidate
+        break
+if result is None:
+    raise ValueError("Offline snapshot exceeds TON Site HTML budget even without trade rows")
+print(f"Bootstrap: {len(preview.get('trades', {}).get('rows', []))} recent swaps; "
+      f"full source: {len(snapshot.get('trades', {}).get('rows', []))} swaps; "
+      f"HTML {len(result.encode('utf-8'))} of {MAX_PAGE_BYTES} permitted bytes")
 if any(x in result for x in ("/*APP*/", "/*STYLE*/", "/*LOADER*/", "/*MARKET_CAP*/",
                              "__PROJECT_ART__", "__PROJECT_BG__", "__TOKEN_FLAG__", "__BADGE_")):
     raise ValueError("Unresolved template marker")
