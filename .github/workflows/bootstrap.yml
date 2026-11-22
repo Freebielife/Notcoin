@@ -31,7 +31,7 @@ jobs:
       - name: Generate isolated Notcoin site
         run: |
           set -euo pipefail
-          python3 .observatory-factory/scripts/scaffold_observatory.py --config project.json --output "$RUNNER_TEMP/notcoin-generated"
+          (cd .observatory-factory && python3 -m scripts.scaffold_observatory --config "$GITHUB_WORKSPACE/project.json" --output "$RUNNER_TEMP/notcoin-generated")
           cp -a "$RUNNER_TEMP/notcoin-generated/." .
           rm -rf .observatory-factory
           test -f .github/workflows/update.yml
