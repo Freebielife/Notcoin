@@ -25,7 +25,6 @@ jobs:
         with:
           repository: Freebielife/Ludoman
           path: .observatory-factory
-          token: ''
           persist-credentials: false
       - name: Prepare build dependency
         run: python3 -m pip install Pillow
