@@ -6,6 +6,8 @@ on:
     paths:
       - '.github/workflows/visual-qa.yml'
       - 'qa/browser_qa.py'
+      - 'web/**'
+      - 'build.py'
 permissions:
   contents: read
 jobs:
@@ -18,6 +20,10 @@ jobs:
         run: |
           python3 -m pip install playwright
           python3 -m playwright install --with-deps chromium
+      - name: Build current page for browser testing
+        run: |
+          python3 build.py
+          python3 verify.py
       - name: Verify 360 390 768 1280 pixel layout and interactions
         run: python3 qa/browser_qa.py
       - name: Archive screenshots and report
