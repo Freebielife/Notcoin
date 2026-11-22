@@ -1,5 +1,19 @@
 # Notcoin Observatory
 
+## О проекте / токене
+
+Notcoin — проект в экосистеме TON с игровой платформой и инструментами знакомства с Web3 внутри Telegram. На официальном сайте среди игр представлен Notcoin clicker. Эта обсерватория отслеживает токен Notcoin (NOT) по указанному ниже контракту в TON.
+
+Контракт в TON: `EQAvlWFDxGF2lXm67y4yzC17wYKD9A0guwPkMs1gOsM__NOT`.
+
+Описание составлено по первичным источникам проекта и метаданным контракта. Проверено: **2026-11-22**.
+
+Источники:
+
+- <https://notcoin.org/ecosystem/>
+- <https://notcoin.org/history/>
+- <https://tonapi.io/v2/jettons/EQAvlWFDxGF2lXm67y4yzC17wYKD9A0guwPkMs1gOsM__NOT>
+
 Standalone, bilingual (RU/EN) TON token observatory, generated from the vetted
 [Freebielife/Ludoman factory](https://github.com/Freebielife/Ludoman/blob/main/docs/NEW_PROJECT_FACTORY.md).
 It is an independent community analytics site, not an official Notcoin service.
