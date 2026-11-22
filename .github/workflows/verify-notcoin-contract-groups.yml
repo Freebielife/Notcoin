@@ -20,7 +20,24 @@ jobs:
           import json
           from pathlib import Path
           import observatory
+          import service_registry
+          from decimal import Decimal
+          book=service_registry.bundled()
+          assert len(book.get("directory", {})) == 538
+          assert len(book["entries"]) == 235
           snap=json.loads(Path("data/snapshot.json").read_text())
+          active_book=snap.get("serviceRegistry", {})
+          assert len(active_book.get("directory", {})) == 538, "Full source not activated in snapshot"
+          assert len(active_book.get("entries", {})) == 235, "Service subset not activated"
+          dex="0:f1fbe8d453d3d4b4796d3d8657ef0773222d123d8dca67c9ef3acd2266f40977"
+          person="0:d8cd999fb2b1b384e6ca254c3883375e23111a8b78c015b886286c31bf11e29d"
+          assert service_registry.lookup(dex,active_book)=="STON.fi DEX"
+          assert service_registry.lookup(person,active_book) is None
+          assert snap["identity"]["byWallet"].get(dex,{}).get("role")=="STON.fi DEX"
+          assert snap["identity"]["byWallet"].get(person,{}).get("directoryName")=="Pavel Durov"
+          assert not snap["identity"]["byWallet"].get(person,{}).get("role")
+          print("Tonkeeper directory: 540 rows / 538 unambiguous / 235 services",flush=True)
+          print("STON.fi DEX matched; named individual excluded from service group",flush=True)
           holders=snap["holders"]["holders"][:100]
           identities=snap["identity"]["byWallet"]
           account_types=snap.get("accountTypes",{}).get("byWallet",{})
@@ -55,4 +72,19 @@ jobs:
           print(json.dumps(contracts,ensure_ascii=False,indent=2))
           print("All service-group ranks/types:")
           print(json.dumps(all_groups,ensure_ascii=False,indent=2))
+          trades=snap.get("trades", {})
+          cutoff=trades.get("asOf",0)-86400
+          amounts={}
+          for trade in trades.get("rows", []):
+              if trade.get("kind")!="sell" or not cutoff < trade["time"] <= trades["asOf"]:
+                  continue
+              wallet=trade["wallet"]
+              amounts[wallet]=amounts.get(wallet,Decimal(0))+Decimal(trade["tokenAmount"])
+          top=sorted(amounts.items(),key=lambda pair:(-pair[1],pair[0]))[:30]
+          named=[{"rank":i,"wallet":addr,"name":identities.get(addr,{}).get("role")}
+                 for i,(addr,_) in enumerate(top,1)
+                 if identities.get(addr,{}).get("role")]
+          print("24h top30 service seller matches:",len(named))
+          print(json.dumps(named,ensure_ascii=False,indent=2))
+
           PY
