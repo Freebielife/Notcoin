@@ -1,0 +1,105 @@
+name: Install official Notcoin main logo
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/brand-logo.yml']
+permissions:
+  contents: write
+concurrency:
+  group: notcoin-brand-install
+  cancel-in-progress: false
+jobs:
+  install-brand:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 10
+      - name: Install trusted image converters
+        run: python3 -m pip install Pillow CairoSVG defusedxml
+      - name: Fetch a real Notcoin logo and rasterize offline
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          from io import BytesIO
+          from PIL import Image
+          from defusedxml import ElementTree
+          import cairosvg
+          import hashlib
+
+          official = "https://cdn.joincommunity.xyz/explore/icons/notcoin-logo-rounded.svg"
+          backup = "https://s3.coinmarketcap.com/static-gravity/image/0a9f73ee3234410c81ab56537263a3e8.png"
+          failures = []
+          img = None
+          source = None
+          for name, url in (("notcoin.org linked logo SVG", official), ("CoinMarketCap NOT PNG", backup)):
+              try:
+                  with urlopen(Request(url, headers={"User-Agent": "Mozilla/5.0 Notcoin-Observatory/1.0"}), timeout=22) as response:
+                      content = response.read(400001)
+                  if not 100 <= len(content) <= 400000:
+                      raise ValueError("Unexpected image size")
+                  if name.endswith("SVG"):
+                      root = ElementTree.fromstring(content)
+                      if root.tag != "{http://www.w3.org/2000/svg}svg":
+                          raise ValueError("Not an SVG root element")
+                      for child in root.iter():
+                          kind = child.tag.split("}")[-1].lower()
+                          if kind in {"script", "foreignobject", "iframe", "image"}:
+                              raise ValueError("Disallowed SVG element: "+kind)
+                          for key, value in child.attrib.items():
+                              prop = key.split("}")[-1].lower()
+                              if prop in {"href", "src"} and not value.startswith("#"):
+                                  raise ValueError("External SVG resource")
+                      raw = cairosvg.svg2png(bytestring=content, output_width=512, output_height=512)
+                      img = Image.open(BytesIO(raw)).convert("RGBA")
+                  else:
+                      img = Image.open(BytesIO(content)).convert("RGBA")
+                  img.thumbnail((512, 512), Image.Resampling.LANCZOS)
+                  if img.width < 128 or img.height < 128 or not img.getbbox():
+                      raise ValueError("Empty or too small Notcoin logo")
+                  source = name
+                  break
+              except Exception as exc:
+                  failures.append(f"{name}: {type(exc).__name__}: {str(exc)[:130]}")
+          if img is None:
+              raise RuntimeError("Both verified Notcoin sources unavailable: " + "; ".join(failures))
+          if img.size != (512, 512):
+              frame = Image.new("RGBA", (512, 512), (0, 0, 0, 0))
+              frame.alpha_composite(img, ((512-img.width)//2, (512-img.height)//2))
+              img = frame
+          target = Path("web/project-logo.webp")
+          img.save(target, format="WEBP", quality=94, method=6)
+          assert target.read_bytes()[:4] == b"RIFF" and target.read_bytes()[8:12] == b"WEBP"
+          old_flag = Path("web/flag-notcoin-036.webp")
+          assert old_flag.exists() and old_flag.read_bytes() != target.read_bytes(), "Logo must differ from TONecoFlags #036"
+          print(f"Brand source: {source}; logo size: {target.stat().st_size} bytes; sha256: {hashlib.sha256(target.read_bytes()).hexdigest()}")
+          PY
+      - name: Rebuild self-contained page with distinct main logo and flag
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git pull --ff-only origin main
+          python3 build.py
+          python3 verify.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          page = Path("index.html").read_text()
+          brand = base64.b64encode(Path("web/project-logo.webp").read_bytes()).decode()
+          flag = base64.b64encode(Path("web/flag-notcoin-036.webp").read_bytes()).decode()
+          assert brand != flag
+          assert brand in page and flag in page
+          assert "__TOKEN_FLAG__" not in page
+          print("Embedded distinct brand and marker; no external image dependency")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/project-logo.webp index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Replace flag hero art with Notcoin official rounded logo"
+            git push origin HEAD:main
+          fi
