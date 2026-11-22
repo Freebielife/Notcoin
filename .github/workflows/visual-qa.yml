@@ -1,0 +1,29 @@
+name: Mobile and link QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/visual-qa.yml'
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser test tooling
+        run: |
+          python3 -m pip install playwright
+          python3 -m playwright install --with-deps chromium
+      - name: Verify 360 390 768 1280 pixel layout and interactions
+        run: python3 qa/browser_qa.py
+      - name: Archive screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: notcoin-browser-qa
+          path: .qa/
+          retention-days: 7
+          if-no-files-found: warn
