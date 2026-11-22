@@ -797,3 +797,9 @@ html[lang="ru"] .customBadgeDescription [lang="en"] {display:none!important}
  display:inline-block;width:15px;height:15px;min-width:15px;flex:0 0 15px;
  border-radius:3px!important
 }
+
+/* The neutral ◇ marker means an unclassified contract, not a verified service. */
+#rank .rankingRow .walletIdentity.unknownContract{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+#rank .rankingRow .contractMarker{display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;flex:0 0 22px;border:1px solid #52657e;background:#172234;
+  border-radius:6px;color:#b5c8e0;font-size:16px;font-weight:500}
