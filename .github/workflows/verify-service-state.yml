@@ -1,0 +1,40 @@
+name: Verify NOT service classifications in published snapshot
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-service-state.yml']
+permissions:
+  contents: read
+jobs:
+  service-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Validate snapshot roles and current indexed NOT balances
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          import observatory
+          snap=json.loads(Path("data/snapshot.json").read_text())
+          records=snap.get("identity",{}).get("byWallet",{})
+          holdings={r["wallet"]:r for r in snap["holders"]["holders"]}
+          checked=0
+          for wallet,name in observatory.KNOWN_SERVICES.items():
+              actual=records.get(wallet,{}).get("role")
+              assert actual==name,(wallet,actual,name)
+              assert wallet in holdings, wallet
+              print("CONFIRMED:",name,"raw",wallet,
+                    "NOT",holdings[wallet]["tokenAmount"],"share",holdings[wallet]["share"],flush=True)
+              checked+=1
+          assert checked==2
+          unknown="0:0f5495fc1051b11da718e78c27a55700292b6cbdf1a3924a4d0f2841f2884d21"
+          actual=records.get(unknown,{}).get("role")
+          assert actual in (None,"unclassified_contract"), actual
+          print("UNVERIFIED CONTRACT",unknown,"role",actual)
+          print("FINAL SNAPSHOT UPDATED",snap.get("updated"),"CONFIRMED SERVICES",checked)
+          PY
