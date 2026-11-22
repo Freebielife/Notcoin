@@ -169,8 +169,16 @@ async def check():
                     await page.screenshot(path=str(REPORT / f"services-{width}.png"))
                     await page.locator("#views button").nth(0).click()
                     regular_text=await page.locator("#rank").inner_text()
-                    assert "Pavel Durov" in regular_text, (
-                        f"Nonservice Tonkeeper address label absent from holders at {width}"
+                    person_entry=await page.evaluate("""() => {
+                        const bootstrap=JSON.parse(document.querySelector('#snapshot').textContent);
+                        const a='0:d8cd999fb2b1b384e6ca254c3883375e23111a8b78c015b886286c31bf11e29d';
+                        return bootstrap.identity?.byWallet?.[a] || null;
+                    }""")
+                    assert person_entry and person_entry.get("directoryName") == "Pavel Durov", (
+                        f"Tonkeeper name was not retained in bootstrap at {width}"
+                    )
+                    assert not person_entry.get("role"), (
+                        f"External named person incorrectly moved to services at {width}"
                     )
                     assert "Binance" not in regular_text and "Bybit" not in regular_text, (
                         f"Exchange addresses still in normal holders at {width}"
