@@ -1,0 +1,31 @@
+{
+  "slug": "notcoin",
+  "name": "Notcoin",
+  "symbol": "NOT",
+  "master": "EQAvlWFDxGF2lXm67y4yzC17wYKD9A0guwPkMs1gOsM__NOT",
+  "decimals": 9,
+  "github": {
+    "owner": "Freebielife",
+    "repo": "Notcoin"
+  },
+  "primary_pool": "EQCaY8Ifl2S6lRBMBJeY35LIuMXPc8JfItWG4tl7lBGrSoR2",
+  "pools": [
+    {
+      "address": "EQCaY8Ifl2S6lRBMBJeY35LIuMXPc8JfItWG4tl7lBGrSoR2",
+      "dex": "stonfi",
+      "quote": "TON"
+    },
+    {
+      "address": "EQCUhnOllvxtLDEj3_9k0yMeTQ4Wv6rFBtXr2wnzKzucZeER",
+      "dex": "dedust",
+      "quote": "TON"
+    }
+  ],
+  "links": {
+    "website": "https://notcoin.org/",
+    "telegram": "https://t.me/notcoin",
+    "x": "https://x.com/notcoin"
+  },
+  "services": {},
+  "badges": []
+}
