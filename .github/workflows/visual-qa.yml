@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/visual-qa.yml'
+      - 'qa/browser_qa.py'
 permissions:
   contents: read
 jobs:
