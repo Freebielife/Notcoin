@@ -13,10 +13,15 @@ It is an independent community analytics site, not an official Notcoin service.
 - Official channel supplied by the owner: https://t.me/notcoin
 - Project home: https://notcoin.org/
 - Official X: https://x.com/notcoin
-- Local brand image: `web/project-logo.webp`, static frame from **TONecoFlags #036**,
-  selected by the observatory owner from their 200-flag catalog. Bundled inside
-  `index.html` by `build.py` (no image CDN or runtime image request).
-  This is a community-supplied flag asset; do not label it an official Notcoin brand file.
+- Main logo: `web/project-logo.webp`, rasterized locally from the rounded SVG
+  linked on the [Notcoin project website](https://notcoin.org/):
+  `https://cdn.joincommunity.xyz/explore/icons/notcoin-logo-rounded.svg`.
+  The provenance and conversion are recorded in `.github/workflows/brand-logo.yml`.
+- Compact NOT token marker: `web/flag-notcoin-036.webp`, extracted from the
+  owner's **TONecoFlags #036** catalog. This is a separate community flag,
+  shown only beside NOT labels in pools and transaction rows.
+- Both files are embedded directly into `index.html` by `build.py`.
+  There are no runtime image CDNs or image requests.
 
 Pool sources:
 - https://www.geckoterminal.com/ton/pools/EQCaY8Ifl2S6lRBMBJeY35LIuMXPc8JfItWG4tl7lBGrSoR2
