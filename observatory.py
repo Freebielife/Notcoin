@@ -22,7 +22,17 @@ KNOWN_SERVICES = {
     "0:779dcc815138d9500e449c5291e7f12738c23d575b5310000f6a253bd607384e": "STON.fi DEX",
     "0:06f3f073c255a49aa6fdcc89abf512638e065908b30e4173fd3d1d01d4f607bd": "Storm Trade Vault",
 }
+# Operator-supplied exchange names. These exact addresses are confirmed, but
+# exchange ownership has not been independently established by TonAPI metadata.
+USER_DECLARED_SERVICES = {
+    "0:f8b8635d0786b77f9da660e65fd31d670a675dd4302facba692f46b571eb5360": "Binance",
+    "0:cf7ea235ed6f6517edce98026ef7618e9f6d81a1331d4e65ba718e2cd15f80ad": "Bybit",
+}
+USER_LABEL_SOURCE = "user-declared:2026-11-22"
+
 def role(wallet, account, registry=None):
+    if wallet in USER_DECLARED_SERVICES:
+        return USER_DECLARED_SERVICES[wallet]
     if wallet in KNOWN_SERVICES:
         return KNOWN_SERVICES[wallet]
     custody = service_registry.lookup(wallet, registry)
@@ -114,7 +124,10 @@ def identity(snapshot, now, budget=32, pace=1.05):
     records = {w: dict(r) for w, r in previous.items()}
     for w in visible:
         records.setdefault(w, {})
-        if w in KNOWN_SERVICES:
+        if w in USER_DECLARED_SERVICES:
+            records[w]["role"] = USER_DECLARED_SERVICES[w]
+            records[w]["roleSource"] = USER_LABEL_SOURCE
+        elif w in KNOWN_SERVICES:
             records[w]["role"] = KNOWN_SERVICES[w]
     queue = sorted(visible, key=lambda w: (w not in top, records[w].get("checked", 0)))
     checks = 0

@@ -24,6 +24,8 @@ class RefreshSourcesTests(unittest.TestCase):
             patch.object(runner.time, 'time', return_value=NOW),
             patch.object(runner.assets, 'holders', return_value={'holders': [{'wallet': 'fixture'}]}),
             patch.object(runner.service_registry, 'update', return_value=False),
+            patch.object(runner.notcoin_contracts, 'collect', return_value={'asOf': NOW, 'byWallet': {}}),
+            patch.object(runner.notcoin_contracts, 'apply', return_value=None),
             patch.object(runner.assets, 'burns', side_effect=OSError('offline') if failed_burn else None,
                          return_value=([], NOW-100)),
             patch.object(runner.observatory, 'zero_burns', return_value={'asOf': NOW, 'rows': []}),

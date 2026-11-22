@@ -12,9 +12,9 @@ const snapshot = {identity:{byWallet:{
   "vault":{role:"Storm Trade Vault"},
   "blank":{role:""}
 }}};
-const role = new Function("snapshot", source[0]+";return serviceRole;")(snapshot);
-test("unclassified contracts are not claimed to be service providers", () => {
-  assert.equal(role("contract"), null);
+const role = new Function("snapshot", "lang", source[0]+";return serviceRole;")(snapshot, "ru");
+test("unclassified contract has an explicit generic label in service/contract ranking", () => {
+  assert.equal(role("contract"), "Смарт-контракт");
   assert.equal(role("unknown"), null);
   assert.equal(role("blank"), null);
 });

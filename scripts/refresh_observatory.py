@@ -15,6 +15,7 @@ from pathlib import Path
 import assets
 import service_registry
 import observatory
+from scripts import notcoin_contracts
 import pools
 import trades
 import trade_history
@@ -67,7 +68,8 @@ def refresh() -> dict:
             print(key, "UNAVAILABLE", type(exc).__name__, str(exc)[:200], flush=True)
 
     stage("holders", lambda _: {**assets.holders(), "asOf": now})
-    if service_registry.update(snap, now, observatory.KNOWN_SERVICES):
+    if service_registry.update(snap, now, {**observatory.KNOWN_SERVICES,
+                                          **observatory.USER_DECLARED_SERVICES}):
         errors.add("serviceRegistry")
     else:
         errors.discard("serviceRegistry")
@@ -95,6 +97,10 @@ def refresh() -> dict:
     # Deep account metadata is verified slowly across many refreshes; a large
     # balance alone must never be used to assert a named service.
     stage("identity", lambda _: observatory.identity(snap, now, budget=6, pace=0.2))
+    stage("accountTypes", lambda prior: notcoin_contracts.collect(snap, prior, now),
+          interval=3600)
+    notcoin_contracts.apply(snap, now)
+    save(snap)
     stage("badges", lambda previous: {**badges.refresh(previous, now), "asOf": now},
           interval=6*3600)
     stage("domains", lambda _: domains.enrich(snap, now), interval=1800)
