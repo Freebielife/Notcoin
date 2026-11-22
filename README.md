@@ -62,6 +62,18 @@ not performed by GitHub Actions. Until the new repo is public, the standalone
 HTML shows its embedded snapshot but cannot fetch new data anonymously from
 a private GitHub repository.
 
+## TON Sites HTML size budget
+
+The standalone `index.html` embeds a **bounded offline bootstrap**, not the
+complete transaction archive: at most 120 recent swaps, top holder records and
+the identity/domain proofs needed to render them. `build.py` rejects pages
+larger than **512,000 bytes**. The full verified on-chain data remains in
+`data/snapshot.json` and is fetched in the browser from public GitHub after
+initial render. If GitHub is temporarily inaccessible, the page can still
+open and show its limited cached preview; a partial history is not a complete
+30-day seller ranking. Download the newly generated `index.html` for each
+TON Sites redeployment; scheduled GitHub updates change only remote data.
+
 ## Run locally
 
 ```bash
