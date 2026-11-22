@@ -790,3 +790,10 @@ html[lang="ru"] .customBadgeDescription [lang="en"] {display:none!important}
   inset:16px 12px auto auto!important
  }
 }
+
+/* Flag #036 appears alongside NOT amount values, never as trade watermarks. */
+.opAmountUnit.tokenWithFlag{display:inline-flex!important;align-items:center;gap:5px;max-width:100%}
+.opAmountUnit.tokenWithFlag .brandGlyph.brand-project{
+ display:inline-block;width:15px;height:15px;min-width:15px;flex:0 0 15px;
+ border-radius:3px!important
+}
