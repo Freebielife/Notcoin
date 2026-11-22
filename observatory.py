@@ -13,7 +13,15 @@ ROLES = {"dedust_vault":"DeDust Vault","stonfi_router_v2":"STON.fi Router V2",
          "stonfi_pool_v2":"STON.fi Pool V2","stonfi_pool_v1":"STON.fi Pool V1"}
 RECOVERABLE = (OSError, ValueError, KeyError, RuntimeError)
 
-KNOWN_SERVICES = {}
+# Exact service identities verified on 2026-11-22.
+# STON.fi DEX router: Tonkeeper ton-assets/accounts.json exact match;
+# independently TonAPI and TON Center report stonfi_router, is_wallet=false.
+# Storm vault: TonAPI and TON Center independently report storm_vault
+# on this exact contract; label represents a protocol contract, not its users.
+KNOWN_SERVICES = {
+    "0:779dcc815138d9500e449c5291e7f12738c23d575b5310000f6a253bd607384e": "STON.fi DEX",
+    "0:06f3f073c255a49aa6fdcc89abf512638e065908b30e4173fd3d1d01d4f607bd": "Storm Trade Vault",
+}
 def role(wallet, account, registry=None):
     if wallet in KNOWN_SERVICES:
         return KNOWN_SERVICES[wallet]
