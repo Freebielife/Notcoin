@@ -158,6 +158,9 @@ def apply(snapshot, registry, overrides=None):
             if wallet in registry["entries"]:
                 record.update(roleRegistry=True, roleSource=registry["source"],
                               roleChecked=registry["asOf"])
+        # Named persons are labelled for display but must not be moved into
+        # the service ranking unless they match the curated service subset.
+        if record:
             records[wallet] = record
 
 

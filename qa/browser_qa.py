@@ -157,12 +157,21 @@ async def check():
                     assert "Binance" in service_text and "Bybit" in service_text, (
                         f"Operator-supplied exchange labels missing in service group at {width}"
                     )
+                    assert "STON.fi DEX" in service_text, (
+                        f"Primary Tonkeeper directory protocol label missing at {width}"
+                    )
+                    assert "Pavel Durov" not in service_text, (
+                        f"Named individual incorrectly classified as service at {width}"
+                    )
                     assert "Смарт-контракт" in service_text, (
                         f"Unattributed active contract not grouped as service at {width}"
                     )
                     await page.screenshot(path=str(REPORT / f"services-{width}.png"))
                     await page.locator("#views button").nth(0).click()
                     regular_text=await page.locator("#rank").inner_text()
+                    assert "Pavel Durov" in regular_text, (
+                        f"Nonservice Tonkeeper address label absent from holders at {width}"
+                    )
                     assert "Binance" not in regular_text and "Bybit" not in regular_text, (
                         f"Exchange addresses still in normal holders at {width}"
                     )

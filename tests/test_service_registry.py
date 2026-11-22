@@ -83,6 +83,15 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(full["directory"][person], "Pavel Durov")
         self.assertNotIn("0:94a7cf34ef6a4b5063500975d70c524cdc2e6ff465d38d5ee8bb7dcc8f7af45e", full["directory"])
 
+    def test_nonservice_directory_name_survives_without_service_role(self):
+        person = "0:d8cd999fb2b1b384e6ca254c3883375e23111a8b78c015b886286c31bf11e29d"
+        snap = {"holders": {"holders": [{"wallet": person}]}}
+        registry.apply(snap, self.book)
+        record = snap["identity"]["byWallet"][person]
+        self.assertEqual(record["directoryName"], "Pavel Durov")
+        self.assertEqual(record["directorySource"], registry.SOURCE_PAGE)
+        self.assertIsNone(record.get("role"))
+
     def test_tonkeeper_duplicate_addresses_are_quarantined(self):
         ambiguous = "0:" + "aa" * 32
         rows = [{"address": ambiguous, "name": "TON Coin Pool Rewards"},
