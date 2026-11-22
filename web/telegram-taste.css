@@ -753,8 +753,8 @@ html[lang="ru"] .customBadgeDescription [lang="en"] {display:none!important}
  .projectBadge.customBadge img {animation:none!important}
 }
 
-/* NOT brand separation: crisp rounded project identity for header/hero.
-   TONecoFlags #036 remains only a compact NOT label beside trades/pools. */
+/* Distinct NOT identity: official rounded project logo for hero and
+   buy/sell watermark, TONecoFlags #036 for small inline token labels. */
 :root{--not-token-flag:url("__TOKEN_FLAG__")}
 .brand .brandMark{
  background:var(--project-art) center / contain no-repeat!important;
@@ -772,11 +772,31 @@ html[lang="ru"] .customBadgeDescription [lang="en"] {display:none!important}
  opacity:1!important
 }
 .brandGlyph.brand-project{
+ background:var(--project-art) center / contain no-repeat!important;
+ background-color:transparent!important;
+ border-color:transparent!important;border-radius:50%!important;
+ box-shadow:none!important;padding:0!important;
+ color:transparent!important;font-size:0!important
+}
+.brandGlyph.brand-notflag{
  background:var(--not-token-flag) center / contain no-repeat!important;
  background-color:#080b11!important;
  border-color:transparent!important;border-radius:5px!important;
  box-shadow:none!important;padding:0!important;
  color:transparent!important;font-size:0!important
+}
+/* Five low-contrast NOT logos like the established Ludoman layout. */
+#feed .operationRow.trade-buy .operationWatermark .brandGlyph.brand-project,
+#feed .operationRow.trade-sell .operationWatermark .brandGlyph.brand-project{
+ display:block;width:46px;height:46px;min-width:46px;
+ background:var(--project-art) center/contain no-repeat!important;
+ background-color:transparent!important;
+ border:0!important;border-radius:50%!important;
+ box-shadow:none!important;filter:grayscale(1);
+}
+#feed .operationRow.trade-buy .operationWatermark,
+#feed .operationRow.trade-sell .operationWatermark{
+ opacity:.15;pointer-events:none
 }
 @media(max-width:640px){
  .hero .heroArt{
@@ -791,9 +811,9 @@ html[lang="ru"] .customBadgeDescription [lang="en"] {display:none!important}
  }
 }
 
-/* Flag #036 appears alongside NOT amount values, never as trade watermarks. */
+/* Flag #036 appears beside NOT amounts, pools and project links. */
 .opAmountUnit.tokenWithFlag{display:inline-flex!important;align-items:center;gap:5px;max-width:100%}
-.opAmountUnit.tokenWithFlag .brandGlyph.brand-project{
+.opAmountUnit.tokenWithFlag .brandGlyph.brand-notflag{
  display:inline-block;width:15px;height:15px;min-width:15px;flex:0 0 15px;
  border-radius:3px!important
 }

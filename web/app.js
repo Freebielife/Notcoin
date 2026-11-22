@@ -778,7 +778,7 @@ function list(){
    const amounts=el("div",undefined,"opAmounts");
    const token=el("div",undefined,"opAmount opToken");
    const tokenLabel=el("small",undefined,"opAmountUnit tokenWithFlag");
-   tokenLabel.append(brandMarkNode("project"),document.createTextNode(" NOT"));
+   tokenLabel.append(brandMarkNode("notflag"),document.createTextNode(" NOT"));
    token.append(el("strong",format(r.tokenAmount),"opAmountValue"),tokenLabel);
    const gram=el("div",undefined,"opAmount opGram");
    const hasGram=r.ton!=null&&Number(r.ton)>0;
@@ -794,6 +794,14 @@ function list(){
    transaction.rel="noopener noreferrer";
    footer.append(wallet,transaction);
    item.append(header,amounts,footer);
+   if(r.kind==="buy"||r.kind==="sell"){
+     // Keep the five-emblem backdrop from the Ludoman observatory.
+     // Hero artwork is deliberately different from the inline NOT flag.
+     const watermark=el("div",undefined,"operationWatermark");
+     watermark.setAttribute("aria-hidden","true");
+     for(let i=0;i<5;i++)watermark.append(brandMarkNode("project"));
+     item.prepend(watermark);
+   }
    return item;
  }));
  if(!combined.length)$("feed").append(el("p",t(large?"noLargeTrades":$("feedDomains").checked||selectedBadgeFilters.size?"noneTagged":"none"),"empty"));
@@ -923,7 +931,7 @@ function markFromLink(anchor){
  if(host.includes("jvault"))return"jvault";
  if(host.includes("getgems"))return"getgems";
  if(host.includes("fragment.com"))return"fragment";
- if(host==="notcoin.org")return"project";
+ if(host==="notcoin.org")return"notflag";
  return null;
 }
 function decorateBrandLinks(){
@@ -996,7 +1004,7 @@ function decorateBrandLinks(){
      if(match){
        const quote=match[2].replace(/\s*\(TON\)\s*$/i,"").trim().toLowerCase();
        const raw=rawLookupAddress(card.dataset.quoteAddress);const native=rawLookupAddress("EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c");const tether=rawLookupAddress("EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs");const tokenKind=raw===native?"ton":raw===tether?"usdt":null;
-       name.replaceChildren(brandMarkNode("project"),document.createTextNode(" NOT / "));
+       name.replaceChildren(brandMarkNode("notflag"),document.createTextNode(" NOT / "));
        if(tokenKind)name.append(brandMarkNode(tokenKind),document.createTextNode(" "+match[2]));
        else name.append(document.createTextNode(match[2]));
      }

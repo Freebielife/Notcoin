@@ -78,21 +78,49 @@ async def check():
                           .backgroundImage.includes('data:image/webp;base64,'),
                         mainLogoHeader: getComputedStyle(document.querySelector('.brandMark'))
                           .backgroundImage.includes('data:image/webp;base64,'),
-                        flagInTokenLabel: !!document.querySelector('[data-brand="project"] .brandGlyph') &&
-                          getComputedStyle(document.querySelector('[data-brand="project"] .brandGlyph'))
+                        flagInTokenLabel: !!document.querySelector('[data-brand="notflag"] .brandGlyph') &&
+                          getComputedStyle(document.querySelector('[data-brand="notflag"] .brandGlyph'))
                             .backgroundImage.includes('data:image/webp;base64,'),
                         compactTradeFlags: document.querySelectorAll(
-                          '#feed .operationRow .opAmountUnit.tokenWithFlag .brandGlyph.brand-project'
+                          '#feed .operationRow .opAmountUnit.tokenWithFlag .brandGlyph.brand-notflag'
                         ).length,
-                        noTradeWatermarks: document.querySelectorAll(
-                          '#feed .operationRow .operationWatermark'
+                        fiveLogoWatermarks: (() => {
+                          const trades = [...document.querySelectorAll(
+                            '#feed .operationRow.trade-buy, #feed .operationRow.trade-sell'
+                          )];
+                          const official = getComputedStyle(document.querySelector('.heroArt')).backgroundImage;
+                          return trades.length > 0 && trades.every(card => {
+                            const marks = [...card.querySelectorAll(
+                              '.operationWatermark .brandGlyph.brand-project'
+                            )];
+                            return marks.length === 5 && marks.every(mark =>
+                              getComputedStyle(mark).backgroundImage === official
+                            );
+                          });
+                        })(),
+                        noBurnWatermarks: document.querySelectorAll(
+                          '#feed .operationRow.trade-burn .operationWatermark'
                         ).length === 0,
+                        correctFlagsInPoolsAndLinks: (() => {
+                          const flag = getComputedStyle(
+                            document.querySelector('[data-brand="notflag"] .brandGlyph')
+                          ).backgroundImage;
+                          const poolFlags = [...document.querySelectorAll(
+                            '#pools .knownPools .poolCard h3 .brandGlyph.brand-notflag'
+                          )];
+                          const notcoinSite = document.querySelector(
+                            '#links .resourceList a[href="https://notcoin.org/"] .brandGlyph.brand-notflag'
+                          );
+                          return poolFlags.length >= 2 &&
+                            poolFlags.every(node => getComputedStyle(node).backgroundImage === flag) &&
+                            !!notcoinSite && getComputedStyle(notcoinSite).backgroundImage === flag;
+                        })(),
                         roundHero: getComputedStyle(document.querySelector('.heroArt'))
                           .borderTopLeftRadius === '50%',
                         mainAndFlagSeparate: (() => {
                           const hero = getComputedStyle(document.querySelector('.heroArt')).backgroundImage;
                           const header = getComputedStyle(document.querySelector('.brandMark')).backgroundImage;
-                          const mark = document.querySelector('[data-brand="project"] .brandGlyph');
+                          const mark = document.querySelector('[data-brand="notflag"] .brandGlyph');
                           return !!mark && hero === header &&
                             hero !== getComputedStyle(mark).backgroundImage;
                         })()
@@ -106,8 +134,12 @@ async def check():
                         f"Runtime-loaded scripts/styles/iframes: {results['externalAssets']}"
                     )
                     assert results["telegram"], "Official Telegram link missing"
-                    assert results["compactTradeFlags"] > 0 and results["noTradeWatermarks"], (
-                        f"Trade flags are not compact or watermarks remain at {width}: {results}"
+                    assert (results["compactTradeFlags"] > 0 and
+                            results["fiveLogoWatermarks"] and results["noBurnWatermarks"]), (
+                        f"Five NOT background logos missing or incorrectly placed at {width}: {results}"
+                    )
+                    assert results["correctFlagsInPoolsAndLinks"], (
+                        f"Incorrect NOT #036 flag in trading pools / useful links at {width}: {results}"
                     )
                     assert results["roundHero"], f"NOT hero logo is not rounded at {width}"
                     assert (results["mainLogoHero"] and results["mainLogoHeader"]
