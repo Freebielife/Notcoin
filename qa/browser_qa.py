@@ -81,6 +81,14 @@ async def check():
                         flagInTokenLabel: !!document.querySelector('[data-brand="project"] .brandGlyph') &&
                           getComputedStyle(document.querySelector('[data-brand="project"] .brandGlyph'))
                             .backgroundImage.includes('data:image/webp;base64,'),
+                        compactTradeFlags: document.querySelectorAll(
+                          '#feed .operationRow .opAmountUnit.tokenWithFlag .brandGlyph.brand-project'
+                        ).length,
+                        noTradeWatermarks: document.querySelectorAll(
+                          '#feed .operationRow .operationWatermark'
+                        ).length === 0,
+                        roundHero: getComputedStyle(document.querySelector('.heroArt'))
+                          .borderTopLeftRadius === '50%',
                         mainAndFlagSeparate: (() => {
                           const hero = getComputedStyle(document.querySelector('.heroArt')).backgroundImage;
                           const header = getComputedStyle(document.querySelector('.brandMark')).backgroundImage;
@@ -98,6 +106,10 @@ async def check():
                         f"Runtime-loaded scripts/styles/iframes: {results['externalAssets']}"
                     )
                     assert results["telegram"], "Official Telegram link missing"
+                    assert results["compactTradeFlags"] > 0 and results["noTradeWatermarks"], (
+                        f"Trade flags are not compact or watermarks remain at {width}: {results}"
+                    )
+                    assert results["roundHero"], f"NOT hero logo is not rounded at {width}"
                     assert (results["mainLogoHero"] and results["mainLogoHeader"]
                             and results["flagInTokenLabel"] and results["mainAndFlagSeparate"]), (
                         f"Main logo or separate TONecoFlags #036 token marker missing at {width}: {results}"
